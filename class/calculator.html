@@ -232,9 +232,8 @@
                 if (event.key === "Escape" || event.key === "Delete") {
                     return handleClick("CE");
                 }
-                if (Number.isInteger(+event.key)) {
-                    return handleClick(event.key);
-                }
+
+                return handleClick(event.key);
             }
             function handleClick(value) {
                 if (value === "CE") {
@@ -258,7 +257,6 @@
                 } else {
                     screen += value;
                 }
-                console.log(value);
                 return (result.value = screen);
             }
         </script>
