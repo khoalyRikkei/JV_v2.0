@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài tập - Chuyển đổi tiền tệ</title>
+        <style>
+            body {
+                padding: 50px;
+            }
+            #convert-bar {
+                display: flex;
+            }
+            #convert-bar div {
+                width: 200px;
+                text-align: center;
+                padding: 10px 30px;
+            }
+            #convert-bar div label {
+                width: 100%;
+                display: block;
+                margin-bottom: 10px;
+            }
+            button {
+                width: 100%;
+                height: 45px;
+                background-color: blue;
+                border: none;
+                border-radius: 5px;
+                font-weight: 600;
+                color: white;
+            }
+            select {
+                width: 50%;
+                padding: 2px;
+            }
+            .result {
+                text-align: center;
+                padding-top: 40px;
+                width: 100%;
+            }
+            .result input {
+                font-size: 1.5em;
+                width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="convert-bar">
+            <div>
+                <label for="amount">Amount</label>
+                <input type="number" id="amount" min="0" />
+            </div>
+            <div>
+                <label for="from">From Currency</label>
+                <select id="select-from" onchange="handleOnChangeSelect(this)">
+                    <option value="USD">USD</option>
+                    <option value="VND">VND</option>
+                </select>
+            </div>
+            <div>
+                <label for="to">Foreign exchange rate</label>
+                <input type="text" name="" id="rate" disabled value="24,845" />
+            </div>
+            <div>
+                <label for="to">To Currency</label>
+                <select id="select-to" onchange="handleOnChangeSelect(this)">
+                    <option value="VND">VND</option>
+                    <option value="USD">USD</option>
+                </select>
+            </div>
+            <div>
+                <button onclick="handleConvert()">Convert</button>
+            </div>
+        </div>
+        <div class="result">
+            <b>Result:</b>
+            <input id="result" readonly />
+        </div>
+        <script>
+            function handleOnChangeSelect(event) {
+                const fromElement = document.querySelector("#select-from");
+                const toElement = document.querySelector("#select-to");
+                if (event.id === "select-from") {
+                    if (event.value === "USD") {
+                        toElement.value = "VND";
+                        rate.value = (24845).toLocaleString("en-us");
+                    } else {
+                        toElement.value = "USD";
+                        rate.value = 0.00004025;
+                    }
+                } else {
+                    if (event.value === "USD") {
+                        toElement.value = "VND";
+                        rate.value = (24845).toLocaleString("en-us");
+                    } else {
+                        toElement.value = "USD";
+                        rate.value = 0.00004025;
+                    }
+                }
+            }
+            function handleConvert() {
+                const from = document.querySelector("#select-from").value;
+                const amount = document.querySelector("#amount").value;
+                const rate = document.querySelector("#rate").value;
+                const resultElement = document.querySelector("#result");
+                console.log("dfdf", amount);
+                if (isNaN(amount) || !amount) {
+                    return alert("Hãy nhập số");
+                }
+                if (from === "VND") {
+                    resultElement.value =
+                        "$ " + (amount * 0.00004025).toLocaleString("en-us");
+                } else {
+                    resultElement.value =
+                        (amount * 24845).toLocaleString("en-us") + " VND";
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài tập</title>
+        <style>
+            button {
+                margin: 30px;
+            }
+            .card {
+                border: 2px solid green;
+                padding: 20px;
+                margin: 20px;
+                border-radius: 5px;
+            }
+            a {
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <button><a href="/">Home</a></button>
+        <div class="card">
+            <h2>Bài tập 1 - Biến, kiểu dữ liệu và toán tử</h2>
+            <button onclick="onBai1()">Bài 1 - Tính điểm trung bình</button>
+            <button onclick="onBai2()">Bài 2 - Đổi &#8451; sang &#8457;</button>
+            <button onclick="onBai3()">Bài 3 - Tính diện tích hình tròn</button>
+            <button onclick="onBai3()">Bài 4 - Tính chu vi hình tròn</button>
+        </div>
+        <div class="card">
+            <h2>Bài tập 2 - Chuyển đổi tiền tệ</h2>
+            <a href="./currencyConverter.html" target="_blank">Click to link</a>
+        </div>
+        <div class="card">
+            <h2>Bài tập 3 - Ứng dụng máy tính</h2>
+            <a href="./calculator.html" target="_blank">Click to link</a>
+        </div>
+        <script>
+            function onBai1() {
+                const math = parseFloat(prompt("Nhập điểm Toán:"));
+                const physic = parseFloat(prompt("Nhập điểm Lý:"));
+                const chemistry = parseFloat(prompt("Nhập điểm Hóa:"));
+                const sum = math + physic + chemistry;
+                const average = (sum / 3).toFixed(1);
+
+                if (!isNaN(sum)) {
+                    alert(
+                        "Điểm trung bình: " + average + " và tổng điểm: " + sum
+                    );
+                } else {
+                    alert("Phải nhập số");
+                }
+            }
+            function onBai2() {
+                const C = parseFloat(prompt("Nhập độ C:"));
+                const F = (9 * C) / 5 + 32;
+                if (!isNaN(F)) {
+                    alert("Độ F: " + F);
+                } else {
+                    alert("Phải nhập số");
+                }
+            }
+            function onBai3() {
+                const r = parseFloat(prompt("Nhập bán kính hình tròn:"));
+                const S = (3.14 * r * r).toFixed(1);
+                alert(
+                    "Diện tích hình tròn: " + S + " làm tròn 2 số thập phân "
+                );
+            }
+
+            function onBai4() {
+                const r = parseFloat(prompt("Nhập bán kính hình tròn:"));
+                const C = (3.14 * r * 2).toFixed(1);
+                alert("Chu vi hình tròn: " + C + " làm tròn 2 số thập phân ");
+            }
+        </script>
+    </body>
+</html>
