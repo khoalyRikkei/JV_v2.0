@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Puzzle Game</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            #img-head {
+                background-image: url("../images/puzzle-1.jpg");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: 100% 0%;
+                width: 510px;
+                height: 170px;
+                border: 1px solid green;
+            }
+            #img-body {
+                background-image: url("../images/puzzle-2.jpg");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: 100% 50%;
+                width: 510px;
+                height: 170px;
+                border: 1px solid green;
+            }
+            #img-footer {
+                background-image: url("../images/puzzle-3.jpg");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: 100% 100%;
+                width: 510px;
+                height: 170px;
+                border: 1px solid green;
+            }
+            #img-main {
+                background-image: url("../images/puzzle-1.jpg");
+                background-size: cover;
+                background-repeat: no-repeat;
+                width: 510px;
+                height: 510px;
+                border: 1px solid green;
+                margin-top: 50px;
+                display: none;
+            }
+            h3 {
+                display: none;
+                text-align: center;
+                width: 510px;
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <button><a href="/" style="text-decoration: none">Home</a></button>
+        </div>
+        <div>
+            <div id="img-head" onclick="handleClick(this)"></div>
+            <div id="img-body" onclick="handleClick(this)"></div>
+            <div id="img-footer" onclick="handleClick(this)"></div>
+        </div>
+        <h2>Click vào ảnh để thay đổi ảnh</h2>
+        <h3>Hình ảnh được ghép thành công</h3>
+        <div id="img-main"></div>
+
+        <script>
+            let imgMain = document.getElementById("img-main");
+            let notify = document.querySelector("h3");
+            let image = 0;
+            let imgHead = 1;
+            let imgBody = 2;
+            let imgFooter = 3;
+            function handleClick(item) {
+                if (image < 4) {
+                    image++;
+                } else {
+                    image = 1;
+                }
+                item.style.backgroundImage = `url('../images/puzzle-${image}.jpg')`;
+                switch (item.id) {
+                    case "img-head":
+                        imgHead = image;
+                        break;
+                    case "img-body":
+                        imgBody = image;
+                        break;
+                    case "img-footer":
+                        imgFooter = image;
+                        break;
+                }
+
+                if (imgHead === imgBody && imgBody === imgFooter) {
+                    imgMain.style.backgroundImage = `url('../images/puzzle-${image}.jpg')`;
+                    imgMain.style.display = "block";
+                    notify.style.display = "block";
+                } else {
+                    imgMain.style.display = "none";
+                    notify.style.display = "none";
+                }
+            }
+        </script>
+    </body>
+</html>

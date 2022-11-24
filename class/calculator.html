@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Calculator</title>
+        <style>
+            #screen {
+                width: 280px;
+                margin: 5px;
+                height: 30px;
+            }
+            tr button {
+                width: 70px;
+                padding: 10px;
+            }
+            input[type="button"] {
+                width: 70px;
+                padding: 10px;
+            }
+            .form {
+                width: 300px;
+                display: inline-block;
+            }
+            #calculator {
+                text-align: center;
+                padding-top: 50px;
+            }
+            caption {
+                border: 1px solid grey;
+                border-radius: 5px;
+                margin: 0 2px;
+                padding: 2px;
+            }
+            caption:focus-visible {
+                outline: 2px solid crimson;
+            }
+
+            caption input {
+                outline: none;
+                border: none;
+                width: 95%;
+                text-align: right;
+            }
+            #result {
+                font-size: 1.9em;
+                font-weight: 500;
+            }
+            input[value="="] {
+                background-color: rgb(0, 89, 255) !important;
+                font-weight: 700;
+                color: white;
+                border-color: rgb(0, 89, 255);
+                border-radius: 2px;
+                font-size: 1.2em;
+                padding: 6.5px;
+            }
+            .delete {
+                background-color: rgba(255, 116, 116, 0.404);
+            }
+        </style>
+    </head>
+    <body onkeydown="handleKeyDown(event)">
+        <div>
+            <button><a href="/" style="text-decoration: none">Home</a></button>
+        </div>
+        <div id="calculator">
+            <div class="form">
+                <table>
+                    <caption>
+                        <input type="text" readonly id="history" />
+                        <input type="text" readonly id="result" value="0" />
+                    </caption>
+                    <tr>
+                        <td>
+                            <input
+                                type="button"
+                                value="("
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value=")"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="x"
+                                onclick="handleClick(this.value)"
+                                class="delete"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="CE"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input
+                                type="button"
+                                value="7"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="8"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="9"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="/"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input
+                                type="button"
+                                value="4"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="5"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="6"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="*"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input
+                                type="button"
+                                value="1"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="2"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="3"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="-"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input
+                                type="button"
+                                value="0"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="."
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="="
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="button"
+                                value="+"
+                                onclick="handleClick(this.value)"
+                            />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <script>
+            const result = document.querySelector("#result");
+            const history = document.querySelector("#history");
+            let screen = "";
+            let provisionalResult = "0";
+            let clickEqual = false;
+            function handleKeyDown(event) {
+                if (event.key === "Enter") {
+                    return handleClick("=");
+                }
+                if (event.key === "Escape" || event.key === "Delete") {
+                    return handleClick("CE");
+                }
+                if (event.key === "Backspace" || event.key === "Delete") {
+                    return handleClick("x");
+                    78;
+                }
+                if (
+                    event.key === "/" ||
+                    event.key === "+" ||
+                    event.key === "*" ||
+                    event.key === "-" ||
+                    event.key === "."
+                ) {
+                    return handleClick(event.key);
+                }
+                if (Number.isInteger(+event.key)) {
+                    return handleClick(event.key);
+                }
+            }
+            function handleClick(value) {
+                if (value === "CE") {
+                    console.log("ce");
+                    screen = "";
+                    history.value = "";
+                    provisionalResult = "";
+                    return (result.value = 0);
+                } else if (value === "=") {
+                    console.log(screen);
+                    screen == "" ? (screen = 0) : (clickEqual = true);
+                    history.value = screen;
+                    try {
+                        provisionalResult = eval(screen);
+                        return (result.value = provisionalResult);
+                    } catch (err) {
+                        return (result.value = "Error");
+                    }
+                } else if (value === "x") {
+                    screen = screen.split("");
+                    let deleteNumber = screen.pop();
+                    screen = screen.join("");
+                    return (result.value = screen);
+                }
+                if (provisionalResult && clickEqual) {
+                    clickEqual = false;
+                    screen = provisionalResult + value;
+                } else {
+                    screen += value;
+                }
+                return (result.value = screen);
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài tập - Good fast cheap</title>
+        <style>
+            .container {
+                margin: 0 auto;
+                width: 500px;
+                margin-top: 100px;
+            }
+            label {
+                text-transform: uppercase;
+            }
+            input[type="range"] {
+                width: 50px;
+            }
+            .border {
+                width: 80px;
+                height: 40px;
+                background-color: orangered;
+                border-radius: 20px;
+                position: relative;
+                margin: 20px;
+                cursor: pointer;
+            }
+            .dot {
+                width: 50px;
+                height: 50px;
+                background-color: green;
+                border-radius: 50%;
+                position: absolute;
+                top: -5px;
+            }
+            .value {
+                position: absolute;
+                left: 120px;
+                top: 10px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <div class="border" onclick="handleClick(this)">
+                <div class="dot"></div>
+                <div class="value">GOOD</div>
+            </div>
+            <div class="border" onclick="handleClick(this)">
+                <div class="dot"></div>
+                <div class="value">FAST</div>
+            </div>
+            <div class="border" onclick="handleClick(this)">
+                <div class="dot"></div>
+                <div class="value">CHEAT</div>
+            </div>
+        </div>
+        <script>
+            function handleChange(event) {
+                const good = document.getElementById("good");
+                const fast = document.getElementById("fast");
+                const cheat = document.getElementById("cheat");
+            }
+            function handleClick(element) {
+                console.log(element);
+                const dot = element.querySelector(".dot");
+                console.log(dot.style.left);
+                if (!dot.style.left || dot.style.left == "0px") {
+                    dot.style.left = "40px";
+                } else {
+                    dot.style.left = 0;
+                }
+            }
+        </script>
+    </body>
+</html>

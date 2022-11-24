@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài tập - Do you love me?</title>
+        <style>
+            h1 {
+                position: absolute;
+                top: 200px;
+                left: 40%;
+            }
+            #btnNo {
+                position: absolute;
+                top: 38px;
+                left: 50%;
+            }
+            button {
+                margin: 20px;
+                padding: 10px;
+                width: 80px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <button><a href="/" style="text-decoration: none">Home</a></button>
+        </div>
+        <h1>
+            Do you love me?
+            <br />
+            <button onclick="handleYes()">YES</button>
+            <button onmouseover="mouseOverNo()" onclick="handleNo()" id="btnNo">
+                NO
+            </button>
+        </h1>
+        <script>
+            function handleYes() {
+                alert(" I LOVE YOU TOO!!");
+            }
+            function handleNo() {
+                alert("I'm so sad! But I'm still love you!");
+            }
+            function mouseOverNo() {
+                let x = Math.round(Math.random(100) * window.innerWidth);
+                let y = Math.round(Math.random(100) * window.innerHeight);
+
+                while (x > 500 || y > 500) {
+                    x = Math.round(Math.random(100) * window.innerWidth);
+                    y = Math.round(Math.random(100) * window.innerHeight);
+                }
+
+                document.getElementById("btnNo").style.left = x + "px";
+                document.getElementById("btnNo").style.top = y + "px";
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài tập - Điều kiện trong JavaScript</title>
+        <style>
+            button {
+                margin: 30px;
+            }
+            .card {
+                border: 2px solid green;
+                padding: 20px;
+                margin: 20px;
+                border-radius: 5px;
+                flex: 1;
+                min-width: 25%;
+            }
+            body {
+                padding: 50px;
+                display: flex;
+                flex-wrap: wrap;
+            }
+            a {
+                text-decoration: none;
+            }
+            div:first-child {
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <button><a href="/">Home</a></button>
+        </div>
+
+        <div class="card">
+            <h3>Bài tập 1 - Tính chỉ số cân nặng</h3>
+            <button onclick="baitap1()">Click me!</button>
+        </div>
+        <div class="card">
+            <h3>Bài tập 2 - Tính số ngày của tháng</h3>
+            <input
+                type="number"
+                id="month"
+                min="1"
+                max="12"
+                placeholder="Nhập tháng (số)"
+                style="width: 120px"
+            />
+            <button onclick="baitap2()">Click me!</button>
+        </div>
+        <div class="card">
+            <h3>Bài tập 3 - Máy tính đơn giản</h3>
+
+            <a href="./calculator.html">Click to link</a>
+        </div>
+
+        <div class="card">
+            <h3>Bài tập 4 - Game Puzzle</h3>
+            <a href="./gamePuzzle.html">Click to link</a>
+        </div>
+        <div class="card">
+            <h3>Bài tập 5 - Do you love me?</h3>
+            <a href="./loveMe.html">Click to link</a>
+        </div>
+        <div class="card">
+            <h3>Bài tập 6 - Fast - Good = Cheap?</h3>
+            <a href="./goodFastCheap.html">Click to link</a>
+        </div>
+        <script>
+            //Tính cân nặng
+
+            function baitap1() {
+                let w = prompt("Nhập cân nặng (kg):");
+                let h = prompt("Nhập chiều cao (m):");
+                let bmi = w / (h * h);
+                if (bmi < 18) alert("Underweight");
+                else if (bmi < 25.0) alert("Normal");
+                else if (bmi < 30.0) alert("Overweight");
+                else alert("Obese");
+            }
+
+            //Tính số ngày của tháng
+            function baitap2() {
+                const value = parseFloat(
+                    document.getElementById("month").value
+                );
+                let days;
+                switch (value) {
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                    case 8:
+                    case 10:
+                    case 12:
+                        days = 31;
+                        break;
+                    case 2:
+                        days = "28 hoặc 29 ";
+                        break;
+
+                    case 4:
+                    case 6:
+                    case 9:
+                    case 11:
+                        days = 30;
+                        break;
+                    default:
+                        days = "Please enter a month";
+                        break;
+                }
+                return alert("Số ngày của tháng: " + days + " ngày");
+            }
+        </script>
+    </body>
+</html>
