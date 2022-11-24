@@ -56,6 +56,9 @@
                 font-size: 1.2em;
                 padding: 6.5px;
             }
+            .delete {
+                background-color: rgba(255, 116, 116, 0.404);
+            }
         </style>
     </head>
     <body onkeydown="handleKeyDown(event)">
@@ -84,8 +87,9 @@
                         <td>
                             <input
                                 type="button"
-                                value="%"
+                                value="x"
                                 onclick="handleClick(this.value)"
+                                class="delete"
                             />
                         </td>
                         <td>
@@ -222,7 +226,7 @@
         <script>
             const result = document.querySelector("#result");
             const history = document.querySelector("#history");
-            let screen = "0";
+            let screen = "";
             let provisionalResult = "0";
             let clickEqual = false;
             function handleKeyDown(event) {
@@ -231,6 +235,10 @@
                 }
                 if (event.key === "Escape" || event.key === "Delete") {
                     return handleClick("CE");
+                }
+                if (event.key === "Backspace" || event.key === "Delete") {
+                    return handleClick("x");
+                    78;
                 }
                 if (
                     event.key === "/" ||
@@ -247,12 +255,14 @@
             }
             function handleClick(value) {
                 if (value === "CE") {
+                    console.log("ce");
                     screen = "";
                     history.value = "";
-                    provisionalResult.value = "";
+                    provisionalResult = "";
                     return (result.value = 0);
                 } else if (value === "=") {
-                    clickEqual = true;
+                    console.log(screen);
+                    screen == "" ? (screen = 0) : (clickEqual = true);
                     history.value = screen;
                     try {
                         provisionalResult = eval(screen);
@@ -260,6 +270,11 @@
                     } catch (err) {
                         return (result.value = "Error");
                     }
+                } else if (value === "x") {
+                    screen = screen.split("");
+                    let deleteNumber = screen.pop();
+                    screen = screen.join("");
+                    return (result.value = screen);
                 }
                 if (provisionalResult && clickEqual) {
                     clickEqual = false;
