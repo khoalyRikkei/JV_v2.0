@@ -232,8 +232,18 @@
                 if (event.key === "Escape" || event.key === "Delete") {
                     return handleClick("CE");
                 }
-
-                return handleClick(event.key);
+                if (
+                    event.key === "/" ||
+                    event.key === "+" ||
+                    event.key === "*" ||
+                    event.key === "-" ||
+                    event.key === "."
+                ) {
+                    return handleClick(event.key);
+                }
+                if (Number.isInteger(+event.key)) {
+                    return handleClick(event.key);
+                }
             }
             function handleClick(value) {
                 if (value === "CE") {
