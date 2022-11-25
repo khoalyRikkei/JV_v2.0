@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Session 12 - Bài tập</title>
+        <style>
+            button {
+                margin: 30px;
+            }
+            .card {
+                border: 2px solid green;
+                padding: 20px;
+                margin: 20px;
+                border-radius: 5px;
+                width: fit-content;
+            }
+            body {
+                display: flex;
+                flex-wrap: wrap;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <h2>Bài tập 1 - Tạo bảng cửu chương</h2>
+            <table id="myTable"></table>
+            <p id="myTable1"></p>
+            <button onclick="onBai1()">Click me!</button>
+            <button onclick="onBai2()">Click me!</button>
+        </div>
+        <div class="card">
+            <h2>Bài tập 2 - Hiển thị số nguyên tố đầu tiên</h2>
+
+            <button onclick="onBai3()">Click me!</button>
+        </div>
+        <div class="card">
+            <h2>Bài tập 3 - Luyện tập vòng lặp 01</h2>
+
+            <button onclick="onBai31()">Bài 1</button>
+            <button onclick="onBai32()">Bài 2</button>
+            <button onclick="onBai33()">Bài 3</button>
+            <button onclick="onBai34()">Bài 4</button>
+            <button onclick="onBai35()">Bài 5</button>
+            <button onclick="onBai36()">Bài 6</button>
+            <button onclick="onBai37()">Bài 7</button>
+            <button onclick="onBai38()">Bài 8</button>
+        </div>
+        <div class="card">
+            <h2>Bài tập 4 - Luyện tập vòng lặp 02</h2>
+
+            <button onclick="onBai3()">Click me!</button>
+        </div>
+
+        <script type="text/javascript">
+            //Thực hành - Sử dụng vòng lặp for
+            function onBai1() {
+                let table =
+                    "<table border='1' width='700' cellspacing='0' cellpadding='3'>";
+                for (let i = 1; i <= 9; i++) {
+                    table = table + "<tr>";
+                    for (j = 1; j <= 9; j++) {
+                        table =
+                            table + "<td>" + `${i} x ${j} = ` + i * j + "</td>";
+                    }
+                    table = table + "</tr>";
+                }
+                table = table + "</table>";
+                return (document.getElementById("myTable1").innerHTML = table);
+            }
+            function onBai2() {
+                let table = document.getElementById("myTable");
+                table.style.border = "2px solid black";
+                table.style.borderCollapse = "collapse";
+
+                for (let i = 1; i <= 9; i++) {
+                    let row = table.insertRow(i - 1);
+                    row.style.borderCollapse = "collapse";
+                    row.style.border = "2px solid black";
+                    for (let j = 1; j <= 9; j++) {
+                        let cell = row.insertCell(j - 1);
+                        cell.style.borderCollapse = "collapse";
+                        cell.style.border = "2px solid black";
+                        cell.style.padding = "5px";
+                        cell.innerHTML = `${i} x ${j} = ` + i * j;
+                    }
+                }
+            }
+
+            function onBai3() {
+                let total = prompt("Nhập số lượng nguyên cần in ra: ");
+                let numbers = [];
+                let count = 0;
+                if (total <= 2 && total > 1) {
+                    alert("Số nguyên tố là 2");
+                } else if (total <= 1) alert("Nhập số lớn hơn 2");
+                for (let i = 2; i < total; i++) {
+                    let prime = isPrime(i);
+                    if (prime) {
+                        numbers.push(i + ", ");
+                        count++;
+                    }
+                }
+                alert(
+                    "có tổng " +
+                        count +
+                        " số nguyên tố và nó là " +
+                        numbers.join("")
+                );
+            }
+            const isPrime = (num) => {
+                for (i = 2; i <= Math.sqrt(num); i++) {
+                    if (num % i == 0) {
+                        return false;
+                    }
+                }
+                return true;
+            };
+
+            function onBai31() {
+                for (let i = 1; i <= 100; i++) {
+                    while ((i = 99)) {
+                        alert("Hoàn thành!");
+                    }
+                }
+            }
+
+            function onBai32() {
+                const t = +prompt("Nhập nhiệt độ");
+
+                if (a > 100) {
+                    alert("Hãy giảm nhiệt độ xuống");
+                } else if (a < 20) {
+                    alert(" hãy tăng nhiệt độ lên!");
+                }
+            }
+        </script>
+    </body>
+</html>
