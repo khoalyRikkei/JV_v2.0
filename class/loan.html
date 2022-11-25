@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài thực hành - Tính lãi suất ngân hàng</title>
+        <style>
+            .container {
+                width: 500px;
+                height: 500px;
+                margin: 0;
+                padding: 100px;
+            }
+            input,
+            select {
+                margin: 10px;
+                width: 60%;
+            }
+            #error {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Tính lãi vay ngân hàng</h1>
+            <input
+                type="number"
+                placeholder="Nhập số tiền muốn vay (triệu đồng)"
+                id="money"
+            />
+            <input
+                type="number"
+                placeholder="Nhập khoảng thời gian muốn vay (tháng)"
+                id="month"
+            />
+            <input
+                type="number"
+                placeholder="Nhập lãi suất hàng năm (%)"
+                id="rate"
+            />
+
+            <button onclick="handleClick()">Kết quả</button>
+
+            <h3 id="error"></h3>
+        </div>
+        <script>
+            function handleClick() {
+                const money = +document.querySelector("#money").value;
+                const month = +document.querySelector("#month").value;
+                const rate = +document.querySelector("#rate").value;
+                const error = document.querySelector("#error");
+                const table = document.querySelector("#myTable");
+                if (!money || !rate || !month) {
+                    error.innerHTML = "Lỗi! Vui lòng điền lại thông tin";
+                } else {
+                    let A = month * Math.pow(1 + rate / 1200, month).toFixed(2);
+                    error.innerHTML = `Số tiền lãi là ${A} triệu đồng, tổng số tiền phải trả là: ${
+                        A + money
+                    }`;
+                }
+
+                /*
+                Cong thuc
+                   A = P x (1+r)^n
+                   A = FV (Future Value – giá trị trong tương lai) là số tiền bạn nhận được trong tương lai. 
+                   P = PV (Present Value – giá trị trong hiện tại) là số tiền gốc bạn đầu tư ban đầu. 
+                   r là lãi suất hằng năm. 
+                   n là số tháng.
+                */
+            }
+        </script>
+    </body>
+</html>
