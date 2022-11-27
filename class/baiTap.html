@@ -1,140 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Session 12 - Bài tập</title>
-        <style>
-            button {
-                margin: 30px;
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Session 12 - Bài tập</title>
+    <style>
+        button {
+            margin: 30px;
+        }
+
+        .card {
+            border: 2px solid green;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 5px;
+            width: fit-content;
+        }
+
+        body {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>Bài tập 1 - Tạo bảng cửu chương</h2>
+        <table id="myTable"></table>
+        <p id="myTable1"></p>
+        <button onclick="onBai1()">Click me!</button>
+        <button onclick="onBai2()">Click me!</button>
+    </div>
+    <div class="card">
+        <h2>Bài tập 2 - Hiển thị số nguyên tố đầu tiên</h2>
+        <button onclick="onBai3()">Click me!</button>
+    </div>
+    <div class="card">
+        <h2>Bài tập 3 - Luyện tập vòng lặp 01</h2>
+        <button onclick="onBai31()">Bài 1</button>
+        <button onclick="onBai32()">Bài 2</button>
+        <button onclick="onBai33()">Bài 3</button>
+        <button onclick="onBai34()">Bài 4</button>
+        <button onclick="onBai35()">Bài 5</button>
+        <button onclick="onBai36()">Bài 6</button>
+        <button onclick="onBai37()">Bài 7</button>
+        <button onclick="onBai38()">Bài 8</button>
+    </div>
+    <div class="card">
+        <h2>Bài tập 4 - Luyện tập vòng lặp 02</h2>
+        <button onclick="onBai41()">Bài 1</button>
+        <button onclick="onBai42()">Bài 2</button>
+        <button><a href="./triangle.html">Bài 3 </a></button>
+        <button onclick="onBai44()">Bài 4</button>
+        <button><a href="./interestRate.html">Bài 5 </a></button>
+        <button onclick="onBai46()">Bài 6</button>
+        <div id="rectangle"></div>
+    </div>
+    <script type="text/javascript">
+        //Thực hành - Sử dụng vòng lặp for
+        function onBai1() {
+            let table =
+                "<table border='1' width='700' cellspacing='0' cellpadding='3'>";
+            for (let i = 1; i <= 9; i++) {
+                table = table + "<tr>";
+                for (j = 1; j <= 9; j++) {
+                    table =
+                        table + "<td>" + `${i} x ${j} = ` + i * j + "</td>";
+                }
+                table = table + "</tr>";
             }
-            .card {
-                border: 2px solid green;
-                padding: 20px;
-                margin: 20px;
-                border-radius: 5px;
-                width: fit-content;
+            table = table + "</table>";
+            return (document.getElementById("myTable1").innerHTML = table);
+        }
+        function onBai2() {
+            let table = document.getElementById("myTable");
+            table.style.border = "2px solid black";
+            table.style.borderCollapse = "collapse";
+
+            for (let i = 1; i <= 9; i++) {
+                let row = table.insertRow(i - 1);
+                row.style.borderCollapse = "collapse";
+                row.style.border = "2px solid black";
+                for (let j = 1; j <= 9; j++) {
+                    let cell = row.insertCell(j - 1);
+                    cell.style.borderCollapse = "collapse";
+                    cell.style.border = "2px solid black";
+                    cell.style.padding = "5px";
+                    cell.innerHTML = `${i} x ${j} = ` + i * j;
+                }
             }
-            body {
-                display: flex;
-                flex-wrap: wrap;
+        }
+
+        function onBai3() {
+            let total = prompt("Nhập số lượng nguyên cần in ra: ");
+            let numbers = [];
+            let count = 0;
+            if (total <= 2 && total > 1) {
+                alert("Số nguyên tố là 2");
+            } else if (total <= 1) alert("Nhập số lớn hơn 2");
+            for (let i = 2; i < total; i++) {
+                let prime = isPrime(i);
+                if (prime) {
+                    numbers.push(i + ", ");
+                    count++;
+                }
             }
-        </style>
-    </head>
-    <body>
-        <div class="card">
-            <h2>Bài tập 1 - Tạo bảng cửu chương</h2>
-            <table id="myTable"></table>
-            <p id="myTable1"></p>
-            <button onclick="onBai1()">Click me!</button>
-            <button onclick="onBai2()">Click me!</button>
-        </div>
-        <div class="card">
-            <h2>Bài tập 2 - Hiển thị số nguyên tố đầu tiên</h2>
+            alert(
+                "có tổng " +
+                count +
+                " số nguyên tố và nó là " +
+                numbers.join("")
+            );
+        }
+        const isPrime = (num) => {
+            for (i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i == 0) {
+                    return false;
+                }
+            }
+            return true;
+        };
 
-            <button onclick="onBai3()">Click me!</button>
-        </div>
-        <div class="card">
-            <h2>Bài tập 3 - Luyện tập vòng lặp 01</h2>
+        // Bài 1: Sử dụng vòng lặp để đếm từ 1 đến 100. Khi số là 99, hiển thị hộp thoại thông báo là đã hoàn thành
+        function onBai31() {
+            for (let i = 1; i <= 100; i++) {
+                while ((i = 99)) {
+                    return alert("Hoàn thành!");
+                }
+            }
+        }
+        function onBai32() {
+            const t = +prompt("Nhập nhiệt độ");
+            if (a > 100) {
+                alert("Hãy giảm nhiệt độ xuống");
+            } else if (a < 20) {
+                alert(" hãy tăng nhiệt độ lên!");
+            }
+        }
 
-            <button onclick="onBai31()">Bài 1</button>
-            <button onclick="onBai32()">Bài 2</button>
-            <button onclick="onBai33()">Bài 3</button>
-            <button onclick="onBai34()">Bài 4</button>
-            <button onclick="onBai35()">Bài 5</button>
-            <button onclick="onBai36()">Bài 6</button>
-            <button onclick="onBai37()">Bài 7</button>
-            <button onclick="onBai38()">Bài 8</button>
-        </div>
-        <div class="card">
-            <h2>Bài tập 4 - Luyện tập vòng lặp 02</h2>
+        function fibonacci(num) {
+            num = num - 1
+            const arr = []
+            let a = 1, b = 0, temp;
+            while (num >= 0) {
+                temp = a;
+                a = a + b;
+                b = temp;
+                num--;
+                arr.push(b)
+            }
+            return arr
+        }
+        // Bài 3: Hiển thị ra 20 số trong dãy fibonacci đầu tiên. 
+        function onBai33() {
 
-            <button onclick="onBai3()">Click me!</button>
-        </div>
+            alert('Chuỗi 20 số Fibonacci là' + fibonacci(20).join())
 
-        <script type="text/javascript">
-            //Thực hành - Sử dụng vòng lặp for
-            function onBai1() {
-                let table =
-                    "<table border='1' width='700' cellspacing='0' cellpadding='3'>";
-                for (let i = 1; i <= 9; i++) {
-                    table = table + "<tr>";
-                    for (j = 1; j <= 9; j++) {
-                        table =
-                            table + "<td>" + `${i} x ${j} = ` + i * j + "</td>";
+        }
+
+        // Bài 4: Tìm số đầu tiên trong dãy fibonacci chia hết cho 5. 
+        function onBai34() {
+            let num = 20
+            let a = 1, b = 0, temp;
+            while (num >= 0) {
+                temp = a;
+                a = a + b;
+                b = temp;
+                num--;
+                if (b % 5 == 0) {
+                    return alert('Số đầu tiên chia hết cho 5 trong chuỗi Fibonacci là: ' + b)
+                }
+            }
+
+        }
+        function onBai35() {
+            const sum = fibonacci(20).reduce((pre, x) => pre + x, 0)
+            alert('Tổng 20 số đầu tiên trong chuỗi Fibonacci là: ' + sum)
+        }
+
+        function onBai36() {
+            let count = 0;
+            let sum = 0;
+            let i = 0;
+            while (count < 30) {
+                if (i % 7 === 0) {
+                    sum = sum + i
+                    count++
+                }
+                i++
+            }
+            alert('Tổng 30 số đầu tiên lớn chia hết cho 7 là: ' + sum)
+        }
+
+        function onBai37() {
+            const arr = []
+            let sum = 0;
+            let i = 0;
+            for (let i = 1; i <= 100; i++) {
+                if (i % 3 == 0 & i % 5 == 0) {
+                    arr.push('FizzBuzz')
+                } else if (i % 3 == 0) {
+                    arr.push('Fizz')
+                } else if (i % 5 == 0) {
+                    arr.push('Buzz')
+                } else {
+                    arr.push(i)
+                }
+            }
+            alert('Dãy số cần in ra: ' + arr.join())
+        }
+        function onBai38() {
+            let min = +prompt('Đoán số từ: ', 0)
+            let max = +prompt('Đoán số đến: ', 10)
+
+            const random = Math.floor(Math.random() * (max - min + 1)) + min;
+            let guess;
+            let c;
+
+            do {
+                guess = prompt('Nhập số dự đoán:')
+                if (random == guess) {
+                    return alert('Chúc mừng bạn đã đoán đúng!!!')
+                } else if (random < guess) {
+                    alert('Bạn đã đoán số lớn hơn kết quả!')
+                } else {
+                    alert('Bạn đã đoán số nhỏ hơn kết quả!')
+
+                }
+                console.log('Hello');
+                c = confirm('Bạn có muốn đoán lại?')
+            } while (c)
+
+
+
+        }
+
+        function onBai41() {
+            let a = prompt(' Nhập số lượng Fibonacci cần in')
+            let arr = fibonacci(a)
+            alert('Dãy số Fibonacci cần tìm là: ' + arr.join())
+        }
+
+        function onBai42() {
+            let a = prompt(' Nhập số nguyên cần tính giai thừa')
+            if (a === 0 || a === 1) {
+                return alert('Giai thừa của ' + a + ' là 1 ')
+            }
+            let result = a
+            let num = a;
+            while (a > 1) {
+                a--
+                result *= a
+
+            }
+            return alert('Giai thừa của ' + num + ' là ' + result)
+        }
+
+        function onBai44() {
+            let a = prompt(' Nhập chiều rộng hình chữ nhật')
+            let b = prompt(' Nhập chiều dài hình chữ nhật')
+            const rectangle = document.querySelector('#rectangle')
+            for (i = 1; i <= a; i++) {
+                const br = document.createElement('br')
+                for (j = 1; j <= b; j++) {
+                    let span = document.createElement('span')
+                    if (i == 1 || j == 1 || i == a || j == b) {
+                        span.innerHTML = '*'
+                    } else {
+                        span.innerHTML = '&nbsp;&nbsp;'
                     }
-                    table = table + "</tr>";
+                    rectangle.appendChild(span)
                 }
-                table = table + "</table>";
-                return (document.getElementById("myTable1").innerHTML = table);
+                rectangle.appendChild(br)
             }
-            function onBai2() {
-                let table = document.getElementById("myTable");
-                table.style.border = "2px solid black";
-                table.style.borderCollapse = "collapse";
+        }
 
-                for (let i = 1; i <= 9; i++) {
-                    let row = table.insertRow(i - 1);
-                    row.style.borderCollapse = "collapse";
-                    row.style.border = "2px solid black";
-                    for (let j = 1; j <= 9; j++) {
-                        let cell = row.insertCell(j - 1);
-                        cell.style.borderCollapse = "collapse";
-                        cell.style.border = "2px solid black";
-                        cell.style.padding = "5px";
-                        cell.innerHTML = `${i} x ${j} = ` + i * j;
+        function onBai46() {
+            for (var row = 0; row <= 5; row++) {
+                for (var col = 0; col <= 6; col++) {
+                    if (((col % 3 != 0) && (row == 0)) || ((col % 3 == 0) && (row == 1))) {
+                        document.write("*");
+                    } else if (row - col == 2 || row + col == 8) {
+                        document.write("*");
+                    }
+                    else {
+                        document.write("&nbsp;&nbsp;");
                     }
                 }
+                document.write("<br>");
             }
+        }
+    </script>
+</body>
 
-            function onBai3() {
-                let total = prompt("Nhập số lượng nguyên cần in ra: ");
-                let numbers = [];
-                let count = 0;
-                if (total <= 2 && total > 1) {
-                    alert("Số nguyên tố là 2");
-                } else if (total <= 1) alert("Nhập số lớn hơn 2");
-                for (let i = 2; i < total; i++) {
-                    let prime = isPrime(i);
-                    if (prime) {
-                        numbers.push(i + ", ");
-                        count++;
-                    }
-                }
-                alert(
-                    "có tổng " +
-                        count +
-                        " số nguyên tố và nó là " +
-                        numbers.join("")
-                );
-            }
-            const isPrime = (num) => {
-                for (i = 2; i <= Math.sqrt(num); i++) {
-                    if (num % i == 0) {
-                        return false;
-                    }
-                }
-                return true;
-            };
-
-            function onBai31() {
-                for (let i = 1; i <= 100; i++) {
-                    while ((i = 99)) {
-                        alert("Hoàn thành!");
-                    }
-                }
-            }
-
-            function onBai32() {
-                const t = +prompt("Nhập nhiệt độ");
-
-                if (a > 100) {
-                    alert("Hãy giảm nhiệt độ xuống");
-                } else if (a < 20) {
-                    alert(" hãy tăng nhiệt độ lên!");
-                }
-            }
-        </script>
-    </body>
 </html>

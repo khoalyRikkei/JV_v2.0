@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lãi suất ngân hàng</title>
+    <style>
+        input {
+            margin: 10px;
+            padding: 5px;
+            width: 300px;
+        }
+
+        #table {
+            margin-top: 30px;
+        }
+
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 5px 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="number" placeholder="Nhập số tiền muốn vay (triệu đồng)" id="money">
+    <br>
+    <input type="number" placeholder="Nhập số tháng cho vay (tháng)" id="month">
+    <br>
+    <input type="number" placeholder="Nhập lãi suất hàng năm (%)" id="rate">
+    <br>
+    <button onclick="handleClick()">Tính</button>
+    <h3 class="result"></h3>
+    <script>
+        function handleClick() {
+            const money = parseFloat(document.getElementById("money").value);
+            const month = parseFloat(document.getElementById("month").value);
+            const rate = parseFloat(document.getElementById("rate").value) / 1200;
+            const result = document.querySelector('.result')
+            let loan = 0;
+            let sumLoan = 0;
+            for (let i = 1; i <= month; i++) {
+                loan = (money + loan) * rate
+                sumLoan = (sumLoan + loan)
+            }
+            const totalMoney = (sumLoan + money).toFixed(4)
+            sumLoan = sumLoan.toFixed(4)
+            result.innerHTML = `Số tiền lãi kép là: ${sumLoan} triệu đồng và tổng số tiền phải trả khi đến hạn là: ${totalMoney} triệu đồng`
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triangle</title>
+</head>
+
+<body>
+    <div id="type-1"></div>
+    <hr>
+    <div id="type-2"></div>
+    <div id="type-3"></div>
+    <hr>
+    <div id="type-4"></div>
+    <script>
+
+        let a = Math.floor(+prompt('Nhập chiều cao của tam giác vuông'))
+        const type1 = document.getElementById('type-1')
+        const type2 = document.getElementById('type-2')
+        const type3 = document.getElementById('type-3')
+        const type4 = document.getElementById('type-4')
+        const arr = new Array(a).fill('&nbsp;&nbsp;')
+        for (let i = 0; i <= a; i++) {
+            for (j = 0; j < i; j++) {
+                const span = document.createElement('span')
+                span.innerHTML = '*'
+                type1.appendChild(span)
+            }
+            type1.appendChild(document.createElement('br'))
+        }
+        for (let i = a; i > 0; i--) {
+            for (j = 0; j < i; j++) {
+                const span = document.createElement('span')
+                span.innerHTML = '*'
+                type2.appendChild(span)
+            }
+            type2.appendChild(document.createElement('br'))
+        }
+        for (let i = a; i > 0; i--) {
+            arr[i] = '*'
+            const div = document.createElement('div')
+            div.innerHTML = arr.join('');
+            type3.appendChild(div)
+        }
+        for (let i = 0; i < a; i++) {
+            arr[i] = '&nbsp;&nbsp;'
+            const div = document.createElement('div')
+            div.innerHTML = arr.join('');
+            type4.appendChild(div)
+        }
+
+
+    </script>
+</body>
+
+</html>
