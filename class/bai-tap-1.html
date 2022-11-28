@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài 1 - Sử dụng hàm có sẵn</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            .container {
+                width: 100%;
+                max-width: 100%;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 20px;
+                padding: 50px;
+                row-gap: 20px;
+            }
+            .card {
+                border: 2px solid green;
+                border-radius: 5px;
+                padding: 10px;
+            }
+            input {
+                display: block;
+                margin: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Bài 1 - Sử dụng hàm có sẵn</h1>
+        <div class="container">
+            <div class="card">
+                <h4>Bài 1</h4>
+                <p>myColor = ["Red", "Green", "White", "Black"];</p>
+
+                <button onclick="handleExample1()">Nối phần tử</button>
+
+                <div class="lab1"></div>
+                <hr />
+                <h4>Bài 2</h4>
+                <i>Nhập vào một chuỗi số</i>
+                <input type="text" placeholder="120182" id="lab12" />
+
+                <br />
+                <button onclick="handleExample12()">Nối số chẵn</button>
+
+                <br />
+                <div class="result-lab12"></div>
+
+                <hr />
+                <h4>Bài 3</h4>
+                <input type="text" placeholder="Hello World!!" id="lab13" />
+
+                <button onclick="handleExample13()">
+                    Chuyển đổi in hoa - thường
+                </button>
+                <br />
+                <br />
+                <div class="result-lab13"></div>
+            </div>
+        </div>
+        <script>
+            function handleExample1() {
+                myColor = ["Red", "Green", "White", "Black"];
+                const lab1 = document.querySelector(".lab1");
+                lab1.innerHTML = myColor.join();
+            }
+            function handleExample12() {
+                const lab12 = document.querySelector("#lab12").value;
+                const resultLab12 = document.querySelector(".result-lab12");
+                const result = [lab12[0]];
+                console.log(result);
+                for (let i = 0; i < lab12.length; i++) {
+                    if (
+                        Number(lab12[i]) % 2 === 0 &&
+                        Number(lab12[i + 1]) % 2 === 0
+                    ) {
+                        result.push("-", lab12[i + 1]);
+                    } else {
+                        result.push(lab12[i + 1]);
+                    }
+                }
+                resultLab12.innerHTML = result.join("");
+            }
+
+            function handleExample13() {
+                const str = document.querySelector("#lab13").value;
+                const resultLab13 = document.querySelector(".result-lab13");
+                var UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                var LOWER = "abcdefghijklmnopqrstuvwxyz";
+                const result = [];
+
+                // for (let i = 0; i < lab13.length; i++) {}
+                for (var x = 0; x < str.length; x++) {
+                    if (UPPER.indexOf(str[x]) !== -1) {
+                        result.push(str[x].toLowerCase());
+                    } else if (LOWER.indexOf(str[x]) !== -1) {
+                        result.push(str[x].toUpperCase());
+                    } else {
+                        result.push(str[x]);
+                    }
+                }
+                resultLab13.innerHTML = result.join("");
+            }
+        </script>
+    </body>
+</html>

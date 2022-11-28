@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài 2 - Từ Điển - Sesion 13</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            .container {
+                border-radius: 5px;
+                width: 60%;
+                height: 100px;
+                margin: 0 auto;
+                border: 1px solid grey;
+                border-bottom: 1px solid grey;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .card {
+                border: 1px solid grey;
+                display: flex;
+                flex-direction: column;
+            }
+            label {
+                padding: 10px;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid grey;
+            }
+            input {
+                border: none;
+                flex: 1;
+                outline: none;
+            }
+            .convert {
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Bài 2 - Từ Điển - Sesion 13</h1>
+
+        <div class="convert">
+            <button onclick="convert()">Convert</button>
+        </div>
+
+        <div class="container">
+            <div class="card">
+                <label for="title" id="vietnamese" class="lang">Việt</label>
+                <input type="text" id="inputWord" class="vietnamese" />
+            </div>
+            <div class="card">
+                <label for="title" id="english" class="lang"> English</label>
+                <input type="text" readonly id="result" />
+            </div>
+        </div>
+        <div class="convert">
+            <button onclick="handleTranslate()">Dịch</button>
+        </div>
+        <br />
+        <br />
+
+        <div class="container">
+            <div class="card">
+                <label for="title" class="lang">Việt</label>
+                <input
+                    type="text"
+                    placeholder="Nhập từ mới vào!!!"
+                    id="vietnameseAdd"
+                />
+            </div>
+            <div class="card">
+                <label for="title" class="lang"> English</label>
+                <input
+                    type="text"
+                    placeholder="Nhập từ mới vào!!!"
+                    id="englishAdd"
+                />
+            </div>
+        </div>
+        <div class="convert">
+            <button onclick="handleAddWord()">Thêm từ mới</button>
+        </div>
+        <script>
+            //dictionary
+
+            const englishWord = ["dog", "cat", "lion", "tiger"];
+            const vietnameseWord = ["chó", "mèo", "sư tử", "hổ"];
+            //change dictionary
+
+            function handleTranslate() {
+                const inputWord = document.getElementById("inputWord");
+                let index;
+                const result = document.getElementById("result");
+                if (inputWord.className === "vietnamese") {
+                    console.log(inputWord.value.toLowerCase().trim());
+                    index = vietnameseWord.indexOf(
+                        inputWord.value.toLowerCase().trim()
+                    );
+                    return index !== -1
+                        ? (result.value = englishWord[index])
+                        : (result.value = ` Từ ${inputWord.value} không có trong từ điển  `);
+                } else {
+                    index = englishWord.indexOf(
+                        inputWord.value.toLowerCase().trim()
+                    );
+                    return index !== -1
+                        ? (result.value = vietnameseWord[index])
+                        : (result.value = ` Từ ${inputWord.value} không có trong từ điển  `);
+                }
+            }
+            function convert() {
+                const lang = document.querySelector(".lang");
+                const vietnamese = document.querySelector("#vietnamese");
+                const english = document.querySelector("#english");
+                const inputWord = document.querySelector("#inputWord");
+                if (inputWord.className === "vietnamese") {
+                    inputWord.className = "english";
+                } else {
+                    inputWord.className = "vietnamese";
+                }
+
+                vietnamese.innerHTML = "English";
+                vietnamese.id = "english";
+                english.id = "vietnamese";
+                english.innerHTML = "Việt";
+            }
+            function handleAddWord() {
+                const vietnamese =
+                    document.querySelector("#vietnameseAdd").value;
+                const english = document.querySelector("#englishAdd").value;
+                if (!vietnamese || !english) {
+                    return alert(
+                        "Vui lòng nhập đủ cả tiếng anh lẫn tiếng việt!"
+                    );
+                } else {
+                    englishWord.push(english.toLowerCase().trim());
+                    vietnameseWord.push(vietnamese.toLowerCase().trim());
+                    alert("Thêm từ mới thành công!!!");
+                }
+            }
+        </script>
+    </body>
+</html>

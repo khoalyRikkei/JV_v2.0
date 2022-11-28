@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài thực hành - Session 13 - Array</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            .container {
+                width: 100%;
+                max-width: 100%;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                column-gap: 20px;
+                padding: 50px;
+                row-gap: 20px;
+            }
+            .card {
+                border: 2px solid green;
+                border-radius: 5px;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="card">
+                <h3>Thực hành 1 - Tạo vào thao tác với mảng</h3>
+                <input type="text" id="txtValue" />
+                <input
+                    type="button"
+                    id="btnAdd"
+                    value="Add"
+                    onclick="add_element_to_array();"
+                />
+                <input
+                    type="button"
+                    id="btnDisplay"
+                    value="Display"
+                    onclick="display_array();"
+                />
+                <div id="result"></div>
+            </div>
+            <div class="card">
+                <h3>Thực hành 2 - Đảo ngược các phần tử trong mảng</h3>
+                <input
+                    type="text"
+                    placeholder=" Nhập vào thông tin bất kỳ"
+                    id="lab2"
+                />
+                <br />
+                <br />
+                <button onclick="handleExample2()">
+                    Click để đảo ngược mảng
+                </button>
+                <br />
+                <span id="reverse"></span>
+            </div>
+            <div class="card">
+                <h3>Thực hành 3 - tìm giá trị trong mảng</h3>
+                <button onclick="handleExample3()">Nhập giá trị</button>
+            </div>
+            <div class="card">
+                <h3>Thực hành 4 - Tìm giá trị lớn nhất trong mảng</h3>
+                <p>-3, 5, 1, 3, 2, 10</p>
+                <button onclick="handleExample4()">
+                    Tìm số lớn nhất trong mảng đã cho
+                </button>
+            </div>
+            <div class="card">
+                <h3>Thực hành 5 - Tạo bàn cờ caro đơn giản</h3>
+                <a href="./TH5.html">Link</a>
+            </div>
+        </div>
+
+        <script>
+            //Thực hành 1 - Tạo vào thao tác với mảng
+            let x = 0;
+            let array = new Array();
+            function add_element_to_array() {
+                array[x] = document.getElementById("txtValue").value;
+                alert("Element: " + array[x] + " Added at index " + x);
+                x++;
+                document.getElementById("txtValue ").value = "";
+            }
+            function display_array() {
+                let e = "<hr/>";
+                for (let i = 0; i < array.length; i++) {
+                    e += "Element " + i + " = " + array[i] + "<br/>";
+                }
+                document.getElementById("result").innerHTML = e;
+            }
+
+            //Thực hành 2 - Đảo ngược các phần tử trong mảng
+            function handleExample2() {
+                const array = document.querySelector("#lab2").value;
+                const reverse = document.querySelector("#reverse");
+                const newArray = [];
+                let first = 0;
+                let last = array.length - 1;
+                while (first < last) {
+                    let b = array[first];
+                    newArray[first] = array[last];
+                    newArray[last] = b;
+                    first++;
+                    last--;
+                }
+                reverse.innerHTML = newArray.join("");
+            }
+
+            //Thực hành 3 - tìm giá trị trong mảng
+            function handleExample3() {
+                let value = prompt("Enter a number: ");
+                let numbers = [-3, 5, 1, 3, 2, 10];
+
+                for (let i = 0; i < numbers.length; i++) {
+                    if (value == numbers[i]) {
+                        alert("Value " + numbers[i] + "found at " + i);
+                    }
+                }
+
+                // const findX = numbers.findIndex((x) => x == value);
+                // if (findX != -1) {
+                //     alert(
+                //         "Giá trị " +
+                //             value +
+                //             " tìm thấy tại index " +
+                //             findX +
+                //             " trong mảng"
+                //     );
+                // } else {
+                //     alert("Không tìm thấy giá trị trong mảng!!");
+                // }
+            }
+
+            // Thực hành 4 - Tìm giá trị lớn nhất trong mảng
+            function handleExample4() {
+                let numbers = [-3, 5, 1, 3, 2, 10];
+                let max = numbers[0];
+                for (let i = 1; i < numbers.length; i++) {
+                    if (numbers[i] > max) {
+                        max = numbers[i];
+                        index = i;
+                    }
+                }
+                alert("max: " + max + " at position " + index);
+            }
+        </script>
+    </body>
+</html>

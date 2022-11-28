@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài tập trên lớp - Session 13 - Array</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            .container {
+                width: 100%;
+                max-width: 100%;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 20px;
+                padding: 50px;
+                row-gap: 20px;
+            }
+            .card {
+                border: 2px solid green;
+                border-radius: 5px;
+                padding: 10px;
+            }
+            button {
+                margin-bottom: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="card">
+                <h3>Bài tập về nhà - Luyện tập mảng 1</h3>
+                <button onclick="bai1()">Bài 1</button>
+                <button onclick="bai2()">Bài 2</button>
+                <button onclick="bai3()">Bài 3</button>
+                <button onclick="bai4()">Bài 4</button>
+                <button onclick="bai5()">Bài 5</button>
+                <button onclick="bai6()">Bài 6</button>
+                <button onclick="bai7()">Bài 7</button>
+                <button onclick="bai8()">Bài 8</button>
+                <button onclick="bai9()">Bài 9</button>
+            </div>
+            <div class="card">
+                <h3>Bài tập về nhà - Luyện tập mảng 2</h3>
+                <button onclick="bai21()">Bài 1</button>
+                <button onclick="bai22()">Bài 2</button>
+                <button onclick="bai23()">Bài 3</button>
+                <button onclick="bai24()">Bài 4</button>
+                <button onclick="bai25()">Bài 5</button>
+                <button onclick="bai26()">Bài 6</button>
+            </div>
+        </div>
+        <script>
+            function bai1() {
+                let a = prompt(
+                    "Nhập chuỗi số nguyên bất kỳ, cách nhau bằng dấu phẩy (,)"
+                );
+                const result = [];
+                a.split(",").forEach((x) => {
+                    if (Number(x) >= 10) {
+                        result.push(x);
+                    }
+                });
+                alert(
+                    "Có " +
+                        result.length +
+                        " phần tử lớn hơn 10. Đó là: " +
+                        result.join()
+                );
+            }
+            function bai2() {
+                let arr = prompt(
+                    "Nhập 10 số nguyên bất kỳ, cách nhau bằng dấu phẩy (,)"
+                );
+                const a = arr.split(",");
+
+                let max = a[0];
+                let index = 0;
+
+                if (a.length != 10) {
+                    return alert("Vui lòng nhập 10 phần từ");
+                } else {
+                    a.forEach((x, i) => {
+                        if (Number(x) > max) {
+                            max = Number(x);
+                            index = i;
+                        }
+                    });
+                }
+
+                alert(
+                    "Phần tử lớn nhất trong mảng là" +
+                        max +
+                        " ở vị trí " +
+                        index
+                );
+            }
+
+            function bai3() {
+                let arr = prompt(
+                    "Nhập dãy số nguyên bất kỳ, cách nhau bằng dấu phẩy (,)"
+                );
+                const a = arr.split(",");
+
+                let max = a[0];
+                let sum = 0;
+                let index = 0;
+
+                a.forEach((x, i) => {
+                    if (Number(x)) {
+                        max = Number(x);
+                        sum = sum + Number(x);
+                        index++;
+                    }
+                });
+
+                alert(
+                    "Phần tử lớn nhất trong mảng là" +
+                        max +
+                        " và giá trị trung bình của mảng là " +
+                        (sum / index).toFixed(2)
+                );
+            }
+
+            function bai4() {
+                let arr = prompt(
+                    "Nhập dãy số nguyên bất kỳ, cách nhau bằng dấu phẩy (,)"
+                );
+                const a = arr.split(",");
+
+                alert("Mảng đảo ngược là: " + a.reverse().join());
+            }
+
+            function bai5() {
+                let arr = prompt(
+                    "Nhập dãy số nguyên bất kỳ, cách nhau bằng dấu phẩy (,)"
+                );
+                const result = [];
+                const a = arr.split(",");
+
+                a.forEach((x) => {
+                    if (Number(x) < 0) {
+                        result.push(x);
+                    }
+                });
+
+                alert("Số nguyên âm trong mảng là: " + result.join());
+            }
+
+            function bai6() {
+                let arr = prompt(
+                    "Nhập 10 số nguyên bất kỳ, cách nhau bằng dấu phẩy (,)"
+                );
+                let b = prompt("Nhập vào số nguyên bất kỳ");
+                const a = arr.split(",");
+                let check = false;
+
+                if (a.length != 10) {
+                    return alert("Vui lòng nhập 10 phần từ");
+                } else {
+                    a.forEach((x) => {
+                        if (Number(x) === Number(b)) {
+                            return (check = true);
+                        }
+                    });
+                }
+                if (check) {
+                    return alert("Number X is in the array");
+                }
+                return alert("Number X is not in the array");
+            }
+
+            function bai7() {
+                let arr = prompt(
+                    "Nhập 10 số nguyên bất kỳ, cách nhau bằng dấu phẩy (,)"
+                );
+                let b = prompt("Nhập vào số nguyên bất kỳ");
+                const a = arr.split(",");
+
+                if (a.length != 10) {
+                    return alert("Vui lòng nhập 10 phần từ");
+                } else {
+                    a.forEach((x, index) => {
+                        if (Number(x) === Number(b)) {
+                            a.splice(index, 1);
+                            a.push(0);
+                        }
+                    });
+                }
+
+                return alert("New array " + a.join());
+            }
+
+            function bai8() {
+                let arr = prompt(
+                    "Nhập dãy số nguyên bất kỳ, cách nhau bằng dấu phẩy (,)"
+                );
+                const a = arr.split(",");
+
+                const newArray = a.sort((a, b) => Number(b) - Number(a));
+
+                return alert(
+                    "Mảng sau khi sắp xếp giảm dần " + newArray.join()
+                );
+            }
+
+            function bai9() {
+                let a = prompt(
+                    "Nhập dãy số nguyên bất kỳ, cách nhau bằng dấu phẩy (,)"
+                );
+                let b = prompt(
+                    "Nhập dãy số nguyên bất kỳ, cách nhau bằng dấu phẩy (,)"
+                );
+                const c = a.split(",").concat(b.split(","));
+
+                return alert("Mảng sau khi sắp xếp giảm dần " + c.join());
+            }
+
+            function bai21() {
+                let a = [
+                    [1, 2, 1, 24],
+                    [8, 11, 9, 4],
+                    [7, 0, 7, 27],
+                    [7, 4, 28, 14],
+                    [3, 10, 26, 7],
+                ];
+
+                for (let i in a) {
+                    console.log("row " + i);
+                    for (let j in a[i]) {
+                        console.log(" " + a[i][j]);
+                    }
+                }
+            }
+            function bai22() {
+                let a = ["c", "s", "c", "2", "6", "1"];
+                console.log(a.reverse().join(""));
+            }
+        </script>
+    </body>
+</html>
