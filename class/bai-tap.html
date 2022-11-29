@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài tập trên lớp - Session 15 - Object</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            .container {
+                width: 100%;
+                max-width: 100%;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 20px;
+                padding: 50px;
+                row-gap: 20px;
+            }
+            .card {
+                border: 2px solid green;
+                border-radius: 5px;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <button><a href="/">Home</a></button>
+        </div>
+        <div class="container">
+            <div class="card">
+                <h3>Bài tập 1 -Xây dựng lớp mô tả hình chữ nhật</h3>
+
+                <button onclick="bai1()">Tạo hình chữ nhật</button>
+                <br />
+                <br />
+                <canvas
+                    id="myCanvas"
+                    width="440"
+                    height="240"
+                    style="border: 1px solid #d3d3d3"
+                    >Your browser does not support the HTML5 canvas tag.</canvas
+                >
+                <div id="rectangle"></div>
+            </div>
+            <div class="card">
+                <h3>Bài tập 2 - Xây dựng lớp mô tả Temperature</h3>
+                <button onclick="bai2()">Nhập độ C</button>
+                <br />
+                <br />
+                <div class="result-t"></div>
+                <div class="result-t-2"></div>
+            </div>
+            <div class="card">
+                <h3>Bài tập 3 - Xây dựng lớp mô tả điện thoại</h3>
+                <button><a href="./mobile.html">Link</a></button>
+            </div>
+        </div>
+        <script>
+            //bài tập 1
+
+            function bai1() {
+                let a = Number(prompt("Nhập chiều rộng hình chữ nhật"));
+                let b = Number(prompt("Nhập chiều rộng dài chữ nhật"));
+                if (a > 400 || b > 200) {
+                    return alert("Please enter width < 400 and height < 200");
+                }
+                function Rectangle(width, height) {
+                    this.width = width;
+                    this.height = height;
+                    this.getArea = () => {
+                        return this.width * this.height;
+                    };
+                    this.getPerimeter = () => {
+                        return 2 * (this.height + this.width);
+                    };
+                }
+                const rectangle = new Rectangle(a, b);
+                function createRectangle() {
+                    let ctx = document
+                        .getElementById("myCanvas")
+                        .getContext("2d");
+                    ctx.beginPath();
+
+                    ctx.rect(20, 20, rectangle.width, rectangle.height);
+                    ctx.fillStyle = "orange";
+                    ctx.fill();
+                    ctx.stroke();
+                }
+                createRectangle();
+                const info = document.getElementById("rectangle");
+                info.innerHTML = `Hình chữ nhật có diện tích ${rectangle.getArea()} px*px và chu vi ${rectangle.getPerimeter()} px`;
+            }
+
+            //bài tập 2
+            function bai2() {
+                let a = Number(prompt("Nhập vào độ C"));
+                function Temperature(t) {
+                    this.t = t;
+                    this.getF = () => this.t * 1.8 + 32;
+                    this.getK = () => this.t + 273.15;
+                }
+                const result = document.querySelector(".result-t");
+                const result2 = document.querySelector(".result-t-2");
+                const temperature = new Temperature(a);
+                result.innerHTML = `${
+                    temperature.t
+                } độ C bằng ${temperature.getF()} độ F `;
+                result2.innerHTML = `${
+                    temperature.t
+                } độ C bằng ${temperature.getK()} độ K `;
+            }
+
+            //bài tập 3
+            function bai3() {
+                let a = Number(prompt("Nhập vào độ C"));
+                function Mobile(battery, storage) {
+                    this.battery = battery;
+                    this.composeMsg = "";
+                    this.temporaryMemory = () => this.composeMsg;
+                    this.storageInbox = () => {};
+                    this.sentMsg = () => {};
+                    this.getMsg = () => {};
+                    this.storageSent = storage;
+                    this.status = status;
+                    this.charge = () => {
+                        if (this.battery < 100) {
+                            setTimeout(this.battery++, 1000);
+                        } else {
+                            return "Full battery";
+                        }
+                    };
+                }
+            }
+        </script>
+    </body>
+</html>

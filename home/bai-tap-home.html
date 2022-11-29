@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài tập trên lớp - Session 13 - Array</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            .container {
+                width: 100%;
+                max-width: 100%;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 20px;
+                padding: 50px;
+                row-gap: 20px;
+            }
+            .card {
+                border: 2px solid green;
+                border-radius: 5px;
+                padding: 10px;
+            }
+            button {
+                margin-bottom: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <button><a href="/">Home</a></button>
+        <div class="container">
+            <div class="card">
+                <h3>Bài tập về nhà - Luyện tập tạo và sử dụng hàm 01</h3>
+                <button onclick="alert('Xin chào!')">Bài 1</button>
+                <button>
+                    Bài 2 <input type="number" onchange="bai2(this)" />
+                </button>
+                <button onclick="bai3()">Bài 3</button>
+                <button onclick="bai4()">Bài 4</button>
+                <button onclick="bai5()">Bài 5</button>
+            </div>
+            <div class="card">
+                <h3>Bài tập về nhà - Luyện tập tạo và sử dụng hàm 01</h3>
+                <button onclick="bai21()">Bài 1</button>
+                <button onclick="bai22()">Bài 2</button>
+                <button onclick="bai23()">Bài 3</button>
+                <button onclick="bai24()">Bài 4</button>
+                <button onclick="bai25()">Bài 5</button>
+                <button onclick="bai26()">Bài 6</button>
+                <button onclick="bai27()">Bài 7</button>
+                <button onclick="bai28()">Bài 8</button>
+                <button onclick="bai29()">Bài 9</button>
+            </div>
+        </div>
+        <script>
+            function bai1() {
+                let a = prompt(
+                    "Nhập chuỗi số nguyên bất kỳ, cách nhau bằng dấu phẩy (,)"
+                );
+                const result = [];
+                a.split(",").forEach((x) => {
+                    if (Number(x) >= 10) {
+                        result.push(x);
+                    }
+                });
+                alert(
+                    "Có " +
+                        result.length +
+                        " phần tử lớn hơn 10. Đó là: " +
+                        result.join()
+                );
+            }
+            function bai2(element) {
+                return alert(
+                    "Tăng 1 giá trị nhập vào: " + (+element.value + 1)
+                );
+            }
+
+            function bai3() {
+                let str = prompt("Nhập vào 2 số, cách nhau bởi dấu phẩy");
+                const a = Number(str.split(",")[0]);
+                const b = Number(str.split(",")[1]);
+                bai3f(a, b);
+            }
+            function bai3f(a, b) {
+                if (a > b) {
+                    return alert("a > b");
+                } else {
+                    return alert("Tổng a và b " + (a + b));
+                }
+            }
+
+            function bai4() {
+                function addNumbers() {
+                    firstNum = 4;
+                    secondNum = 8;
+                    result = firstNum + secondNum;
+                    return result;
+                }
+                result = 0;
+                alert("result " + result);
+                result = addNumbers();
+                alert("result " + result);
+            }
+
+            function bai5() {
+                let start = prompt("Nhập vào tên một ngôi sao", "Aldebaran");
+                const result = findStart(start);
+                console.log(result);
+                if (result) {
+                    alert("Ngôi sao thuộc chòm sao " + result);
+                } else {
+                    alert("Not start found!");
+                }
+            }
+
+            function findStart(start) {
+                const starts = [
+                    "Polaris",
+                    "Aldebaran",
+                    "Deneb",
+                    "Vega",
+                    "Altair",
+                    "Dubhe",
+                    "Regulus",
+                ];
+                const constellation = [
+                    "Ursa Minor",
+                    "Tarurus",
+                    "Cygnus",
+                    "Lyra",
+                    "Aquila",
+                    "Ursa Major",
+                    "Leo",
+                ];
+                const index = starts.indexOf(start);
+                const result = constellation[index];
+                if (index !== -1) {
+                    return constellation[index];
+                }
+            }
+
+            //
+
+            function square(num) {
+                return num * num;
+            }
+
+            // S hình tròn
+
+            function circleArea(r) {
+                return 3.14 * r * r;
+            }
+
+            // C hình tròn
+            function circleDiameter(r) {
+                return 2 * r * 3.14;
+            }
+
+            // Giai thừa
+            function factorial(num) {
+                if (Number.isInteger(num) && num > 0) {
+                    let result = 1;
+                    for (let i = num; i > 0; i--) {
+                        result *= i;
+                    }
+                    return result;
+                } else if (num === 0) {
+                    return 1;
+                }
+            }
+
+            //Check number
+            function isNumber(num) {
+                if (!isNaN(num)) {
+                    return true;
+                }
+            }
+
+            function bai21() {
+                let a = Number(prompt("Nhập vào một số bất kỳ"));
+                alert("Bình phương của nó là " + square(a));
+            }
+            function bai22() {
+                let a = Number(prompt("Nhập vào bán kính hình tròn"));
+                alert(
+                    "Hình tròn có diện tích: " +
+                        circleArea(a) +
+                        " và chu vi: " +
+                        circleDiameter(a)
+                );
+            }
+
+            function bai23() {
+                let a = Number(prompt("Nhập vào một số nguyên dương"));
+
+                factorial(a)
+                    ? alert("Giai thừa của " + a + " là " + factorial(a))
+                    : alert("Phải nhập vào số nguyên dương");
+            }
+            function bai24() {
+                let a = Number(prompt("Nhập vào 1 ký tự"));
+                isNumber(a)
+                    ? alert("Đây là một số")
+                    : alert("Ký tự vừa nhập không phải số");
+            }
+            function bai25() {
+                let numbers = prompt(
+                    "Nhập vào 3 số nguyên, cách nhau bởi dấu phẩy"
+                );
+                const array = numbers.split(",");
+                const sortArray = array.sort((a, b) => +a - b);
+                alert("Giá trị nhỏ nhất: " + sortArray[0]);
+            }
+            function bai26() {
+                let a = +prompt("Nhập một số");
+                if (Number.isInteger(a) && a > 0) {
+                    alert("Số nguyên dương");
+                } else {
+                    alert("Không phải nguyên dương");
+                }
+            }
+            function bai27() {
+                let a = prompt("Nhập vào 2 số , cách nhau bởi dấu phẩy");
+                alert("Hoán đổi vị trí: " + a.split(",").reverse().join());
+            }
+            function bai28() {
+                let a = prompt(
+                    "Nhập vào mảng số nguyên , cách nhau bởi dấu phẩy"
+                );
+                alert("Đảo ngược mảng: " + a.split(",").reverse().join());
+            }
+            function bai29() {
+                let a = prompt("Nhập vào chuỗi ký tự");
+                let b = prompt("Nhập vào ký tự bất kỳ");
+                let count = 0;
+                for (let i = 0; i < a.length; i++) {
+                    if (b === a[i]) {
+                        count++;
+                    }
+                }
+                count > 0
+                    ? alert(
+                          "Ký tự " +
+                              '"' +
+                              b +
+                              '"' +
+                              " xuất hiện " +
+                              count +
+                              " lần"
+                      )
+                    : alert("mảng không chứa ký tự vừa nhập");
+            }
+        </script>
+    </body>
+</html>

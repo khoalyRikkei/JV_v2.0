@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài tập 3 - Xây dựng lớp mô tả điện thoại</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <style>
+            #mobile {
+                border: 2px solid grey;
+                width: 390px;
+                height: 844px;
+                border-radius: 5px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+            }
+            .turn-on {
+                font-size: 50px;
+                color: white;
+            }
+            .turn-off {
+                font-size: 30px;
+                color: red;
+                position: absolute;
+                left: 20px;
+                top: 20px;
+                display: none;
+            }
+            /* .off {
+                background: black;
+            } */
+
+            .container {
+                display: flex;
+            }
+            .battery {
+                width: 50px;
+                height: 15px;
+                border-radius: 2px;
+                border: 1px solid black;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                overflow: hidden;
+            }
+            .battery--status {
+                width: 100%;
+                height: 100%;
+                background: green;
+            }
+            .msg {
+                position: absolute;
+                bottom: 20px;
+                gap: 10px;
+                display: flex;
+                gap: 10px;
+                flex-direction: column;
+            }
+            .msg > div {
+                display: flex;
+                gap: 10px;
+            }
+            .fa-paper-plane {
+                font-size: 15px;
+                color: rgb(0, 132, 255);
+            }
+        </style>
+    </head>
+    <body>
+        <h3>Bài tập 3 - Xây dựng lớp mô tả điện thoại</h3>
+        <div class="container">
+            <div id="mobile" class="off">
+                <input type="hidden" value="0909000999" class="user" />
+                <i
+                    class="fa-solid fa-power-off turn-off"
+                    onclick="handleOnOff(this)"
+                ></i>
+                <i
+                    class="fa-solid fa-power-off turn-on"
+                    onclick="handleOnOff(this)"
+                ></i>
+                <div class="battery"><div class="battery--status"></div></div>
+                <div class="msg">
+                    <div>
+                        <textarea
+                            name=""
+                            id=""
+                            cols="30"
+                            rows="2"
+                            onchange="handleComposeMsg(this)"
+                        ></textarea>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="to" class="to" /><i
+                            class="fa-solid fa-paper-plane"
+                            onclick="handleSendMsg(element)"
+                        ></i>
+                    </div>
+                </div>
+            </div>
+            <div id="mobile" class="off">
+                <i
+                    class="fa-solid fa-power-off turn-off"
+                    onclick="handleOnOff(this)"
+                ></i>
+                <i
+                    class="fa-solid fa-power-off turn-on"
+                    onclick="handleOnOff(this)"
+                ></i>
+            </div>
+        </div>
+        <script>
+            //Create mobile profile
+            const M1 = new Mobile(0909, 100);
+            const M2 = new Mobile(0901, 100);
+            const dataBase = [M1, M2];
+
+            function handleOnOff(element) {
+                const mobile = element.closest("#mobile");
+                const tunrOff = mobile.querySelector(".turn-off");
+                const tunrOn = mobile.querySelector(".turn-on");
+
+                if (mobile.classList.value.includes("off")) {
+                    mobile.classList.remove("off");
+                    tunrOff.style.display = "inline";
+                    tunrOn.style.display = "none";
+                } else {
+                    mobile.classList.add("off");
+                    tunrOff.style.display = "none";
+                    tunrOn.style.display = "inline";
+                }
+            }
+
+            function Mobile(user, battery) {
+                this.user = user;
+                this.getUser = () => this.user;
+                this.setUser = (user) => this.user;
+                this.battery = battery;
+                // composeMsg
+                this.composeMsg = "";
+                this.setComposeMsg = (msg) => (this.composeMsg = msg);
+                this.getComposeMsg = () => this.composeMsg;
+                // Inbox Msg
+                this.inboxMsg = [];
+                this.setInboxMsg = (user, content) => {
+                    if (this.inboxMsg.length >= 10) {
+                        this.inboxMsg.shift();
+                        this.inboxMsg.push({ from: user, content: content });
+                    }
+                };
+                //Sent Message
+                this.sendMsg = [];
+                this.setSendMsg = (user, content) => {
+                    if (this.sendMsg.length >= 10) {
+                        this.sendMsg.shift();
+                        this.sendMsg.push({ to: user, content: content });
+                    }
+                };
+                this.storageSent = storage;
+                this.status = status;
+                this.charge = () => {
+                    if (this.battery < 100) {
+                        setTimeout(this.battery++, 1000);
+                    } else {
+                        return "Full battery";
+                    }
+                };
+            }
+
+            //save compose Message
+            function handleComposeMsg(element) {
+                Mobile.setComposeMsg(element.value);
+            }
+            function handleSendMsg(element) {
+                const mobile = element.closest("#mobile");
+                const user = mobile.querySelector(".user").value;
+                const to = mobile.querySelector(".to").value;
+                if (!to) {
+                    return alert("Please fill a user that you want to send");
+                } else {
+                    const content = Mobile.getContent();
+                    Mobile.setInboxMsg(to, content);
+                }
+            }
+        </script>
+    </body>
+</html>
