@@ -238,6 +238,33 @@
                 let a = ["c", "s", "c", "2", "6", "1"];
                 console.log(a.reverse().join(""));
             }
+
+            function bai23() {
+                let a = prompt("Nhập vào mảng ký tự!");
+                alert(
+                    "Mảng ký tự có " +
+                        a.trim().length +
+                        " (loại bỏ khoảng trống)"
+                );
+            }
+            function bai24() {
+                let a = prompt("Nhập vào đoạn văn bản");
+                alert("Có " + a.split(" ").length + " chữ trong đoạn văn!");
+            }
+            function bai25() {
+                let a = prompt("Nhập vào đoạn văn bản thứ nhất");
+                let b = prompt("Nhập vào đoạn văn bản thứ 2");
+                a.localeCompare(b) === 0
+                    ? alert("2 chuỗi giống nhau")
+                    : alert("2 chuỗi khác nhau!");
+            }
+            function bai26() {
+                let a = prompt("Nhập vào đoạn văn bản");
+                alert(
+                    'Chuỗi văn bản mới thay đổi "-" thành "_": ' +
+                        a.replace(/-/g, "_")
+                );
+            }
         </script>
     </body>
 </html>
