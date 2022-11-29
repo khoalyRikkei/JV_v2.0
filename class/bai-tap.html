@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài tập trên lớp - Session 14 - Function</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            .container {
+                width: 100%;
+                max-width: 100%;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 20px;
+                padding: 50px;
+                row-gap: 20px;
+            }
+            .card {
+                border: 2px solid green;
+                border-radius: 5px;
+                padding: 10px;
+            }
+            #result {
+                margin: 30px 220px;
+                color: red;
+                width: 100%;
+            }
+            #example-2 {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            #example-2 > div {
+                border: 1px solid rgba(128, 128, 128, 0.555);
+                padding: 5px;
+                margin: 0 10px;
+            }
+            #example-2 > div > input {
+                border: none;
+                outline: none;
+            }
+            .btn {
+                background-color: rgb(0, 110, 255);
+                color: white;
+                padding: 5px 10px;
+                border: none;
+                border-radius: 5px;
+            }
+            table {
+                border: 1px solid grey;
+                margin: 30px 0;
+            }
+            table,
+            td,
+            tr {
+                border-collapse: collapse;
+            }
+            table tr:nth-child(even) {
+                background-color: rgba(169, 169, 169);
+            }
+            table tr:nth-child(even) input {
+                background-color: rgba(169, 169, 169);
+            }
+            td {
+                padding: 5px 20px;
+            }
+            tr td:first-child {
+                width: 50%;
+            }
+            thead {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+            caption > div {
+                font-weight: bold;
+            }
+            table input {
+                border: none;
+                outline: none;
+            }
+            table tr:first-child {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <button><a href="/">Home</a></button>
+        </div>
+        <div class="container">
+            <div class="card">
+                <h3>Bài tập 1 - Hàm kiểm tra số nguyên</h3>
+
+                <button onclick="bai1()">Nhập số</button>
+            </div>
+            <div class="card">
+                <h3>Bài tập 2 - Chuyển đổi giữa feet và mét</h3>
+                <div id="example-2">
+                    <div>
+                        <input
+                            type="number"
+                            id="input"
+                            placeholder="feet"
+                            onchange="onchangeBai2()"
+                        />
+                        <label for="input">ft</label>
+                    </div>
+
+                    <button onclick="handleConvert()">Convert</button>
+                    <div>
+                        <input
+                            type="number"
+                            id="output"
+                            placeholder="mét"
+                            readonly
+                        /><label for="output">m</label>
+                    </div>
+                </div>
+                <div id="result"></div>
+            </div>
+            <div class="card">
+                <h3>Bài tập 3 - Ứng dụng quản lý sản phẩm sử dụng hàm</h3>
+                <div class="container-product">
+                    <div class="add-product">
+                        <input
+                            type="text"
+                            placeholder="Enter a product name!"
+                            id="product-name"
+                        />
+                        <button onclick="handleAdd()">Add</button>
+                    </div>
+                    <div class="list-product" id="list-product"></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Bài tập 4 - Kiểm tra từ đối xứng</h3>
+
+                <button onclick="bai4()">Nhập từ</button>
+            </div>
+        </div>
+        <script>
+            //bài tập 1
+            function isPrime(num) {
+                for (let i = 2; i <= Math.sqrt(num); i++) {
+                    if (num % i === 0) return false;
+                }
+                return true;
+            }
+            function bai1() {
+                let num = prompt("Nhập vào số cần kiểm tra");
+                isPrime(num)
+                    ? alert("Số vừa nhập là số nguyên tố")
+                    : alert("Số vừa nhập không phải số nguyên tố");
+            }
+
+            //bài tập 2
+            function handleConvert() {
+                const input = document.querySelector("#input");
+                const output = document.querySelector("#output");
+                const labelIn = document.querySelector("label[for='input']");
+                const labelOut = document.querySelector("label[for='output']");
+                if (input.placeholder === "mét") {
+                    input.placeholder = "feet";
+                    output.placeholder = "mét";
+                    labelIn.innerHTML = "ft";
+                    labelOut.innerHTML = "m";
+                } else {
+                    input.placeholder = "mét";
+                    output.placeholder = "feet";
+                    labelIn.innerHTML = "m";
+                    labelOut.innerHTML = "ft";
+                }
+                onchangeBai2();
+            }
+            function onchangeBai2() {
+                const input = document.querySelector("#input");
+                const output = document.querySelector("#output");
+                const result = document.getElementById("result");
+
+                if (input.placeholder === "mét") {
+                    output.value = (input.value * 3.2803).toFixed(4);
+                    result.innerHTML = `${input.value}m = ${(
+                        input.value * 3.2803
+                    ).toFixed(4)}ft`;
+                } else {
+                    output.value = (input.value * 0.3048).toFixed(4);
+                    result.innerHTML = `${input.value}ft = ${(
+                        input.value * 0.3048
+                    ).toFixed(4)}m`;
+                }
+            }
+
+            //bài tập 3
+            const productList = [];
+            function handleAdd() {
+                const productName =
+                    document.querySelector("#product-name").value;
+                if (!productName) {
+                    return alert("Please enter a product name");
+                } else {
+                    productList.push(productName);
+                }
+                renderList();
+            }
+
+            function renderList() {
+                const table = document.createElement("table");
+                const list = document.querySelector("#list-product");
+                list.innerHTML = "";
+                if (productList.length > 0) {
+                    //create row title
+                    let row = table.insertRow(0);
+                    let col0 = row.insertCell(0);
+                    let col1 = row.insertCell(1);
+                    let col2 = row.insertCell(2);
+                    col0.innerHTML = "STT";
+                    col1.innerHTML = "Product Name";
+                    col2.innerHTML = `Total ${productList.length} products`;
+                    col2.setAttribute("colspan", 2);
+
+                    //create rows product list
+                    productList.forEach((item, index) => {
+                        let row = table.insertRow(index + 1);
+                        const input = document.createElement("input");
+                        input.readOnly = true;
+                        input.id = index;
+                        input.value = item;
+                        let col0 = row.insertCell(0);
+                        let col1 = row.insertCell(1);
+                        let col2 = row.insertCell(2);
+                        let col3 = row.insertCell(3);
+                        col0.innerHTML = index + 1;
+                        col1.appendChild(input);
+                        const editBtn = document.createElement("button");
+                        const deleteBtn = document.createElement("button");
+                        editBtn.innerHTML = "Edit";
+                        editBtn.setAttribute(
+                            "onclick",
+                            "handleEditDelete(this)"
+                        );
+                        editBtn.className = "btn";
+                        deleteBtn.innerHTML = "Delete";
+                        deleteBtn.setAttribute(
+                            "onclick",
+                            "handleEditDelete(this)"
+                        );
+                        deleteBtn.className = "btn";
+                        col2.appendChild(editBtn);
+                        col3.appendChild(deleteBtn);
+                    });
+                }
+
+                list.appendChild(table);
+            }
+
+            function handleEditDelete(element) {
+                //find input in row
+                const input = element.closest("tr").querySelector("input");
+                //check edit, delete
+                if (element.innerHTML === "Edit") {
+                    input.readOnly = false;
+                    element.innerHTML = "Ok?";
+                    element.style.background = "red";
+                    input.style.border = "1px solid red";
+                } else if (element.innerHTML === "Ok?") {
+                    const index = Array.from(
+                        element.closest("tr").parentElement.children
+                    ).indexOf(element.closest("tr"));
+                    productList.splice(index - 1, 1, input.value);
+                    renderList();
+                } else {
+                    let c = confirm("Are you sure you want to delete it?");
+                    if (c) {
+                        const index = Array.from(
+                            element.closest("tr").parentElement.children
+                        ).indexOf(element.closest("tr"));
+                        productList.splice(index - 1, 1);
+                        renderList();
+                    }
+                }
+            }
+
+            //bài tập 4 - Kiểm tra từ đối xứng
+            function bai4() {
+                let str = prompt("Nhập vào một từ");
+                const palindrome = str.split("").reverse().join("");
+                palindrome === str
+                    ? alert("That word is a palindrome")
+                    : alert("That word is not a palindrome");
+            }
+        </script>
+    </body>
+</html>

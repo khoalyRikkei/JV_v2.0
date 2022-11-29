@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài thực hành - Session 14 - Function</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            .container {
+                width: 100%;
+                max-width: 100%;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                column-gap: 20px;
+                padding: 50px;
+                row-gap: 20px;
+            }
+            .card {
+                border: 2px solid green;
+                border-radius: 5px;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <button><a href="/">Home</a></button>
+        <div class="container">
+            <div class="card">
+                <h3>Thực hành 1 - Tạo và gọi hàm</h3>
+                <button onclick="bai1()">Click để gọi hàm</button>
+            </div>
+            <div class="card">
+                <h3>Thực hành 2 - Chuyển đổi nhiệt độ</h3>
+
+                <p>
+                    <label>Fahrenheit</label>
+                    <input
+                        id="inputFahrenheit"
+                        type="number"
+                        placeholder="Fahrenheit"
+                        oninput="temperatureConverter(this.value)"
+                        onchange="temperatureConverter(this.value)"
+                    />
+                </p>
+                <p>Celsius: <span id="outputCelsius"></span></p>
+            </div>
+            <div class="card">
+                <h3>Thực hành 3 - Tìm giá trị nhỏ nhất trong mảng</h3>
+                <button onclick="handleExample3()">Nhập giá trị</button>
+            </div>
+        </div>
+
+        <script>
+            function bai1() {
+                function processConfirm(answer) {
+                    let result = "";
+                    if (answer) {
+                        result = "Excellent. We'll play a nice game of chess.";
+                    } else {
+                        result = "Maybe later then.";
+                    }
+                    return result;
+                }
+                let confirmAnswer = confirm("Shall we play a game?");
+                let theAnswer = processConfirm(confirmAnswer);
+                alert(theAnswer);
+            }
+
+            function temperatureConverter(valNum) {
+                valNum = parseFloat(valNum);
+                document.getElementById("outputCelsius").innerHTML =
+                    (valNum - 32) / 1.8;
+            }
+
+            function minArray(arr) {
+                if (arr.length == 0) return -1;
+                let minIndex = 0;
+                for (let i = 1; i < arr.length; i++) {
+                    if (+arr[i] < +arr[minIndex]) {
+                        minIndex = i;
+                    }
+                }
+                return minIndex;
+            }
+
+            function handleExample3() {
+                let str = prompt("Nhập chuỗi số nguyên ngăn cách bởi dấu phẩy");
+                const arr = str.split(",");
+                let minIndex = minArray(arr);
+                minIndex !== -1
+                    ? alert("Số bé nhất trong mảng " + arr[minIndex])
+                    : alert("Không có số nào trong mảng");
+            }
+        </script>
+    </body>
+</html>
