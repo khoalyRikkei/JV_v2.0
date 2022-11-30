@@ -1,133 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Bài tập trên lớp - Session 13 - Array</title>
-        <style>
-            * {
-                box-sizing: border-box;
-            }
-            #myCanvas {
-                border: 1px solid #d3d3d3;
-                min-width: 800px;
-                min-height: 800px;
-            }
-            .container {
-                text-align: center;
-            }
-        </style>
-    </head>
-    <body>
-        <button><a href="/">Home</a></button>
 
-        <h3>Bài tập về nhà - Phát triển game lái xe</h3>
-        <div class="container">
-            <p>Canvas:</p>
-            <canvas id="myCanvas" style="border: 1px solid #d3d3d3"></canvas>
-        </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bài tập trên lớp - Session 15 - Object 1</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-        <script>
-            const canvas = document.getElementById("myCanvas");
-            canvas.width = window.innerWidth * 0.8;
-            canvas.height = window.innerHeight * 0.8;
-            const ctx = canvas.getContext("2d");
+        #myCanvas {
+            border: 1px solid #d3d3d3;
+            min-width: 800px;
+            min-height: 800px;
+        }
 
-            function Obstacle(src, x, y, width) {
-                this.src = src;
-                this.width = width;
-                this.x = x;
-                this.y = y;
-                this.Image = new Image();
-                this.Image.src = this.src;
-                this.Image.onload = () => {
-                    ctx.drawImage(
-                        this.Image,
-                        0,
-                        0,
-                        1000,
-                        1000,
-                        this.x,
-                        this.y,
-                        this.width,
-                        this.width
-                    );
-                };
-                this.setPosition = (x, y) => {
-                    this.x += x;
-                    this.y += y;
-                    switch (true) {
-                        case this.x > canvas.width - 50:
-                            this.x = canvas.width - 50;
-                            break;
-                        case this.x < 0:
-                            this.x = 0;
-                            break;
-                        case this.y > canvas.height - 50:
-                            this.y = canvas.height - 50;
-                            break;
-                        case this.y < 0:
-                            this.y = 0;
-                            break;
-                    }
-                };
-                this.setMoveTo = (x, y, rotate) => {
-                    ctx.reset();
-                    ctx.beginPath();
-                    ctx.drawImage(
-                        this.Image,
-                        0,
-                        0,
-                        1000,
-                        1000,
-                        this.x,
-                        this.y,
-                        this.width,
-                        this.width
-                    );
-                    ctx.rotate((rotate * Math.PI) / 180);
-                    ctx.stroke();
-                };
-            }
-            const coin = new Obstacle("images/coin.png", 10, 10, 100);
-            const bomb = new Obstacle("images/bomb.png", 100, 0, 100);
-            const bullet = new Obstacle("images/bullet.png", 500, 0, 100);
-            const tank = new Obstacle("images/tank.png", 0, 0, 200);
+        #scoreCanvas {
+            border: 1px solid #d3d3d3;
+            min-width: 800px;
+        }
 
-            function moveTank(e) {
-                console.log(e.key);
-                let positionX = 0;
-                let positionY = 0;
-                let rotate = 0;
+        .container {
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
 
-                switch (e.key) {
-                    case "ArrowDown":
-                        positionY += 10;
-                        rotate = 180;
+<body>
+    <button><a href="/">Home</a></button>
+    <h3>Bài tập về nhà - Phát triển game lái xe</h3>
+    <button onclick="addMoreObstacle()">Create more Obstacle</button>
+    <div class="container">
+        <canvas id="scoreCanvas"></canvas>
+        <canvas id="myCanvas"></canvas>
+    </div>
+    <script>
+        const scoreCanvas = document.getElementById("scoreCanvas");
+        const ctxScore = scoreCanvas.getContext("2d");
+        scoreCanvas.width = window.innerWidth * 0.8;
+        scoreCanvas.height = 50;
+        const canvas = document.getElementById("myCanvas");
+        canvas.width = window.innerWidth * 0.8;
+        canvas.height = window.innerHeight * 0.7;
+        const ctx = canvas.getContext("2d");
+        const obstaclePosition = []
+        let endGame = false;
+
+
+        //create score
+
+        let coinScore = 0;
+        let bulletScore = 0;
+        let totalScore = coinScore + bulletScore * 2
+
+
+        function renderScore() {
+            ctxScore.reset();
+            ctxScore.font = "30px Arial";
+            ctxScore.strokeText("Score:", 10, 40);
+            ctxScore.strokeText(totalScore, 100, 40);
+            ctxScore.strokeText("Coin:", 300, 40);
+            ctxScore.strokeText(coinScore, 375, 40);
+            ctxScore.strokeText("Bullet:", 600, 40);
+            ctxScore.strokeText(bulletScore, 685, 40);
+        }
+
+
+        function Obstacle(src, x, y, width) {
+            this.src = src;
+            this.width = width;
+            this.x = x;
+            this.y = y;
+            this.Image = new Image();
+            this.Image.src = this.src;
+            this.Image.onload = () => {
+                ctx.drawImage(
+                    this.Image,
+                    0,
+                    0,
+                    1000,
+                    1000,
+                    this.x,
+                    this.y,
+                    this.width,
+                    this.width
+                );
+            };
+            this.setPosition = (x, y) => {
+                this.x += x;
+                this.y += y;
+                switch (true) {
+                    case this.x > canvas.width - 50:
+                        this.x = canvas.width - 50;
                         break;
-                    case "ArrowUp":
-                        positionY -= 10;
-                        rotate = 0;
+                    case this.x < -50:
+                        this.x = -50;
                         break;
-                    case "ArrowRight":
-                        positionX += 10;
-                        rotate = 90;
+                    case this.y > canvas.height - 50:
+                        this.y = canvas.height - 50;
                         break;
-                    case "ArrowLeft":
-                        positionX -= 10;
-                        rotate = -90;
+                    case this.y < -50:
+                        this.y = -50;
                         break;
                 }
+            };
+            this.setMoveTo = (x, y, rotate) => {
+                ctx.beginPath();
+                ctx.clearRect(this.x - x, this.y - y, 100, 102);
+                ctx.drawImage(
+                    this.Image,
+                    0,
+                    0,
+                    1000,
+                    1000,
+                    this.x,
+                    this.y,
+                    this.width,
+                    this.width
+                );
 
-                if (e.ctrlKey) {
-                    positionX *= 3;
-                    positionY *= 3;
-                }
-                tank.setPosition(positionX, positionY);
-                tank.setMoveTo(positionX, positionY, rotate);
+                ctx.stroke();
+            };
+            this.deleteImage = (x, y) => {
+                ctx.clearRect(x, y, 60, 60);
             }
-            window.addEventListener("keydown", (event) => moveTank(event));
-        </script>
-    </body>
+        }
+
+
+
+        function createObstacle() {
+            let x1 = Math.floor(Math.random() * (canvas.width - 300)) + 200
+            let y1 = Math.floor(Math.random() * canvas.height - 100) + 200
+            let x2 = Math.floor(Math.random() * (canvas.width - 300)) + 200
+            let y2 = Math.floor(Math.random() * canvas.height - 100) + 200
+            let x3 = Math.floor(Math.random() * (canvas.width - 300)) + 200
+            let y3 = Math.floor(Math.random() * canvas.height - 100) + 200
+            obstaclePosition.push({ name: 'bomb', x: x1, y: y1 }, { name: 'bullet', x: x2, y: y2 }, { name: 'coin', x: x3, y: y3 })
+            const coin = new Obstacle("images/coin.png", x3, y3, 100);
+            const bomb = new Obstacle("images/bomb.png", x1, y1, 100);
+            const bullet = new Obstacle("images/bullet.png", x2, y2, 100);
+
+        }
+
+
+        function moveTank(e) {
+
+            let positionX = 0;
+            let positionY = 0;
+            let rotate = 0;
+            if (endGame) {
+                return alert("Game over!!! Please play again!");
+            }
+
+            switch (e.key) {
+                case "ArrowDown":
+                    positionY += 10;
+                    rotate = 180;
+                    break;
+                case "ArrowUp":
+                    positionY -= 10;
+                    rotate = 0;
+                    break;
+                case "ArrowRight":
+                    positionX += 10;
+                    rotate = 90;
+                    break;
+                case "ArrowLeft":
+                    positionX -= 10;
+                    rotate = -90;
+                    break;
+            }
+
+            if (e.ctrlKey) {
+                positionX *= 3;
+                positionY *= 3;
+            }
+
+            //check coin 
+
+            coinPosition = obstaclePosition.filter(icon => icon.name === 'coin')
+            console.log(coinPosition);
+            coinPosition.forEach((coin, index) => {
+                if ((tank.x > coin.x - 90 && tank.x < coin.x + 50) && (tank.y > coin.y - 90 && tank.y < coin.y + 50)) {
+                    tank.deleteImage(coin.x, coin.y)
+                    coinScore++;
+                    obstaclePosition.splice(index, 1);
+                    renderScore()
+                }
+            })
+
+            //check bullet
+            bulletPosition = obstaclePosition.filter(icon => icon.name === 'bullet')
+            bulletPosition.forEach((bullet, index) => {
+                if ((tank.x > bullet.x - 90 && tank.x < bullet.x + 50) && (tank.y > bullet.y - 90 && tank.y < bullet.y + 50)) {
+                    obstaclePosition.splice(index, 1)
+                    tank.deleteImage(bullet.x, bullet.y)
+                    bullet++;
+                    renderScore()
+                }
+            })
+
+            //check bomb
+            bombPosition = obstaclePosition.filter(icon => icon.name === 'bomb')
+            bombPosition.forEach(bomb => {
+                if ((tank.x > bomb.x - 90 && tank.x < bomb.x + 50) && (tank.y > bomb.y - 90 && tank.y < bomb.y + 50)) {
+                    const bum = new Obstacle("images/bum-3.jpg", tank.x, tank.y, canvas.width * 0.3);
+                    endGame = true
+
+                }
+            })
+            tank.setPosition(positionX, positionY);
+            tank.setMoveTo(positionX, positionY, rotate);
+        }
+        function addMoreObstacle() {
+
+            if (obstaclePosition.length > 12) {
+                return alert("Too many obstacles, let's start playing")
+            } else {
+                createObstacle()
+            }
+        }
+        const tank = new Obstacle("images/tank.png", 0, 0, 200);
+        createObstacle()
+        renderScore()
+        window.addEventListener("keydown", (event) => moveTank(event));
+    </script>
+</body>
+
 </html>
