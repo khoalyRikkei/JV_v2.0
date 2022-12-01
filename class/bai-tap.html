@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bài tập trên lớp - Session 16 - Object 2</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            .container {
+                width: 100%;
+                max-width: 100%;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 20px;
+                padding: 50px;
+                row-gap: 20px;
+            }
+            .card {
+                border: 2px solid green;
+                border-radius: 5px;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <button><a href="/">Home</a></button>
+        </div>
+        <h1>Bài tập trên lớp - Session 16 - Object 2</h1>
+        <div class="container">
+            <div class="card">
+                <h3>Bài tập 1 - Game đơn giản - di chuyển đối tượng</h3>
+                <div id="game"></div>
+                <button onclick="bai1()">Start</button>
+                <button onclick="stop()">Stop</button>
+            </div>
+            <div class="card">
+                <h3>
+                    Bài tập 2 - Phát triển ứng dụng nhỏ mô phỏng câu chuyện Adam
+                    và Eva
+                </h3>
+                <button><a href="./adam-eva.html">Link</a></button>
+            </div>
+            <div class="card">
+                <h3>
+                    Bài tập 3 - Phát triển chương trình thể hiện sự tương tác
+                    giữa hai đối tượng công tắc và bóng đèn
+                </h3>
+                <button><a href="./flashlight.html">Link</a></button>
+            </div>
+            <div class="card">
+                <h3>
+                    Bài tập 3 - Phát triển ứng dụng mô phỏng lại quá trình mèo
+                    bắt chuột và ăn chuột
+                </h3>
+                <button><a href="./cat-mouse.html">Link</a></button>
+            </div>
+        </div>
+        <script>
+            //bài tập 1
+            let setTime;
+            function bai1() {
+                let changeDirection = false;
+                function Hero(image, top, left, size, speed) {
+                    this.image = image;
+                    this.top = top;
+                    this.left = left;
+                    this.size = size;
+                    this.getHeroElement = function () {
+                        return `<img width="${this.size}" height="${this.size}" src="${this.image}" style="top:${this.top}px;left:${this.left}px;position:absolute;" />`;
+                    };
+                    this.speed = speed;
+                    this.moveRight = function () {
+                        this.left += this.speed;
+                    };
+                    this.moveLeft = () => {
+                        this.left -= this.speed;
+                    };
+                }
+                var hero = new Hero("images/pikachu.png", 20, 30, 200, 20);
+                function start() {
+                    console.log(hero.left, window.innerWidth);
+                    if (
+                        hero.left < window.innerWidth - hero.size &&
+                        !changeDirection
+                    ) {
+                        hero.moveRight();
+                    } else if (hero.left > 0) {
+                        hero.moveLeft();
+                        changeDirection = true;
+                    } else {
+                        changeDirection = false;
+                    }
+                    document.getElementById("game").innerHTML =
+                        hero.getHeroElement();
+                    setTime = setTimeout(start, 100);
+                }
+                start();
+            }
+
+            function stop() {
+                document.getElementById("game").innerHTML = "";
+                clearTimeout(setTime);
+            }
+            //bài tập 2
+        </script>
+    </body>
+</html>

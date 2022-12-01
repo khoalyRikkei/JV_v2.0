@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Adam && Eva</title>
+        <style>
+            img {
+                width: 100%;
+                height: auto;
+            }
+            .container {
+                display: flex;
+                justify-content: center;
+                height: 80vh;
+                align-items: center;
+                gap: 30px;
+            }
+            .person {
+                width: 300px;
+                position: relative;
+            }
+            .eat {
+                padding: 10px;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                background: green;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                color: white;
+                font-size: 25px;
+                position: absolute;
+                bottom: 100px;
+                left: 100px;
+            }
+            .apple {
+                background: linear-gradient(#5bc236, #308014, #006400);
+                width: 208px;
+                height: 198px;
+                position: relative;
+                border-radius: 35% 35% 41% 41% / 42% 42% 75% 75%;
+                overflow: hidden;
+            }
+
+            .apple-leaf {
+                background: #5bc236;
+                content: "";
+                width: 55px;
+                height: 55px;
+                position: absolute;
+                margin: -51px 0 0 100px;
+                border-radius: 100px 0;
+                z-index: 5;
+            }
+
+            .apple-size {
+                width: 500px;
+                height: 00%;
+                background-color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="person" id="Adam">
+                <img src="./images/adam.png" alt="" />
+                <div class="eat" onclick="onEat(this)">eat</div>
+            </div>
+            <div class="apple">
+                <div class="apple-size">
+                    <div class="apple-leaf"></div>
+                </div>
+            </div>
+            <div class="person" id="Eva">
+                <img src="./images/eva.png" alt="" />
+                <div class="eat" onclick="onEat(this)">eat</div>
+            </div>
+        </div>
+    </body>
+    <script>
+        const Adam = new Human("Adam", "male", "50", "Hello");
+        const Eva = new Human("Eva", "female", "40", "I'm Eva");
+        const DB = [Adam, Eva];
+        function Human(name, gender, weight, speak) {
+            this.name = name;
+            this.gender = gender;
+            this.weight = weight;
+            this.speak = speak;
+            this.setSpeak = (content) => (this.speak = content);
+            this.getEat = () => {
+                if (Apple.getSize() > 0) {
+                    this.weight++;
+                    Apple.sizeDown();
+                } else {
+                    alert("Apple is empty");
+                }
+            };
+        }
+        function Apple() {
+            this.size = size;
+            this.sizeDown = () => this.size--;
+            this.getSize = () => this.size;
+        }
+
+        function onEat(element) {
+            const name = element.closest(".person").id;
+            const actionPerson = DB.find((person) => person.name === name);
+            if (Apple.getSize() <= 0) {
+                alert("Dont can eat Apple");
+            } else {
+                actionPerson.getEat();
+            }
+        }
+    </script>
+</html>
