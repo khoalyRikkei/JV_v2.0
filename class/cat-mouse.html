@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cat catches mouse</title>
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <script>
+            const canvas = document.getElementById("canvas");
+            const cxt = canvas.getContext("2d");
+            canvas.width = window.innerWidth * 0.8;
+            canvas.height = window.innerHeight * 0.8;
+
+            let x = canvas.width / 2; //initial position
+            let y = canvas.height / 2;
+            let dx = 0;
+            let dy = 0;
+            var delta = 5; // range (from 0) of possible dx or dy change
+            var max = 15; // maximum dx or dy values
+            canvas.addEventListener("click", togglestart);
+
+            function togglestart() {
+                if (interval == undefined)
+                    interval = window.setInterval(animate, 1000 / 10); // 60 FPS
+                else {
+                    interval = clearInterval(interval);
+                    console.log(interval);
+                }
+            }
+
+            let interval = window.setInterval(animate, 1000 / 10);
+
+            function animate() {
+                var d2x = Math.random() * delta - delta / 2; //change dx and dy by random value
+                var d2y = Math.random() * delta - delta / 2;
+                if (Math.abs(d2x + dx) > max)
+                    // start slowing down if going too fast
+                    d2x *= -1;
+                if (Math.abs(d2y + dy) > max) d2y *= -1;
+                dx += d2x;
+                dy += d2y;
+                if (x + dx < 0 || x + dx > canvas.width)
+                    // bounce off walls
+                    dx *= -1;
+                if (y + dy < 0 || y + dy > canvas.height) dy *= -1;
+                x += dx;
+                y += dy;
+                cxt.beginPath(); //drawing circle
+                // cxt.clearRect(0, 0, canvas.width, canvas.height); // wiping canvas
+            }
+
+            function Animal(name, weight, speed, sound, src, died = false) {
+                this.name = name;
+                this.weight = weight;
+                this.speed = speed;
+                this.sound = sound;
+                this.isDied = died;
+                this.setDied = () => (this.isDied = true);
+                this.image = new Image();
+                this.image.src = src;
+                this.image.onload = () => {
+                    cxt.drawImage(this.image, 0, 0, 1000, 1000, 0, 0, 200, 200);
+                };
+            }
+            const cat = new Animal(
+                "cat",
+                100,
+                50,
+                "chit chit",
+                "images/mouse.png",
+                false
+            );
+        </script>
+    </body>
+</html>

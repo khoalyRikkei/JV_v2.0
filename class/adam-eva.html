@@ -43,6 +43,7 @@
                 height: 198px;
                 position: relative;
                 border-radius: 35% 35% 41% 41% / 42% 42% 75% 75%;
+                border: 5px solid rgb(21, 68, 21);
                 overflow: hidden;
             }
 
@@ -59,7 +60,7 @@
 
             .apple-size {
                 width: 500px;
-                height: 00%;
+                height: 0%;
                 background-color: white;
             }
         </style>
@@ -71,9 +72,7 @@
                 <div class="eat" onclick="onEat(this)">eat</div>
             </div>
             <div class="apple">
-                <div class="apple-size">
-                    <div class="apple-leaf"></div>
-                </div>
+                <div class="apple-size"></div>
             </div>
             <div class="person" id="Eva">
                 <img src="./images/eva.png" alt="" />
@@ -84,35 +83,46 @@
     <script>
         const Adam = new Human("Adam", "male", "50", "Hello");
         const Eva = new Human("Eva", "female", "40", "I'm Eva");
+        const apple = new Apple(10);
         const DB = [Adam, Eva];
+        const appleSize = document.querySelector(".apple-size");
+
         function Human(name, gender, weight, speak) {
             this.name = name;
             this.gender = gender;
             this.weight = weight;
+            this.orginalWeight = weight;
             this.speak = speak;
             this.setSpeak = (content) => (this.speak = content);
             this.getEat = () => {
-                if (Apple.getSize() > 0) {
+                if (apple.rest > 0) {
                     this.weight++;
-                    Apple.sizeDown();
+                    apple.sizeDown();
                 } else {
                     alert("Apple is empty");
                 }
             };
         }
-        function Apple() {
+        function Apple(size) {
             this.size = size;
-            this.sizeDown = () => this.size--;
-            this.getSize = () => this.size;
+            this.rest = size;
+            this.sizeDown = () => this.rest--;
         }
 
         function onEat(element) {
-            const name = element.closest(".person").id;
-            const actionPerson = DB.find((person) => person.name === name);
-            if (Apple.getSize() <= 0) {
+            const person = element.closest(".person");
+            const personEat = DB.find((item) => item.name === person.id);
+            if (apple.rest <= 0) {
                 alert("Dont can eat Apple");
             } else {
-                actionPerson.getEat();
+                personEat.getEat();
+                appleSize.style.height = `${
+                    (1 - apple.rest / apple.size) * 100
+                }%`;
+                person.style.transform = `scale(${
+                    personEat.weight / personEat.orginalWeight
+                })`;
+                console.log(personEat);
             }
         }
     </script>

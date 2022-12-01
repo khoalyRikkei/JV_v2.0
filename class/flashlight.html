@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Flash light</title>
+        <style>
+            .container {
+                padding: 50px;
+                width: fit-content;
+                margin: 0 auto;
+            }
+            .item {
+                cursor: pointer;
+                width: fit-content;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="item">
+                <img src="./images/lightOn.png" alt="" width="300" id="lamp" />
+            </div>
+            <div class="item">
+                <img
+                    src="./images/switchOn.png"
+                    alt=""
+                    width="200"
+                    onclick="onSwitch()"
+                    id="switch"
+                />
+            </div>
+        </div>
+        <script>
+            let setStatus = false;
+            const lampImg = document.getElementById("lamp");
+            const switchImg = document.getElementById("switch");
+            const Lamp = new ElectricLamp(setStatus);
+            const switchButton = new SwitchButton(setStatus);
+            function SwitchButton(status) {
+                this.status = status;
+                this.setStatus = (status) => {
+                    if (status) {
+                        this.status = false;
+                        Lamp.setStatus(false);
+                        this.src = "images/switchOff.png";
+                    } else {
+                        this.status = true;
+                        Lamp.setStatus(true);
+                        this.src = "images/switchOn.png";
+                    }
+                };
+                this.src = "images/switchOn.png";
+            }
+
+            function ElectricLamp(status = true) {
+                this.status = status;
+                this.setStatus = (status) => {
+                    this.status = status;
+                    if (status) {
+                        this.src = "images/lightOn.png";
+                    } else {
+                        this.src = "images/lightOff.png";
+                    }
+                };
+                this.src = "images/lightOn.png";
+            }
+
+            function onSwitch() {
+                switchButton.setStatus(!setStatus);
+                lampImg.src = Lamp.src;
+                switchImg.src = switchButton.src;
+                setStatus = !setStatus;
+            }
+        </script>
+    </body>
+</html>
