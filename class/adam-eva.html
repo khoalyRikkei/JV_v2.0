@@ -87,6 +87,12 @@
         const DB = [Adam, Eva];
         const appleSize = document.querySelector(".apple-size");
 
+        function Apple(size) {
+            this.size = size;
+            this.rest = size;
+            this.sizeDown = () => this.rest--;
+        }
+
         function Human(name, gender, weight, speak) {
             this.name = name;
             this.gender = gender;
@@ -94,19 +100,14 @@
             this.orginalWeight = weight;
             this.speak = speak;
             this.setSpeak = (content) => (this.speak = content);
-            this.getEat = () => {
-                if (apple.rest > 0) {
+            this.getEat = (fruit) => {
+                if (fruit.rest > 0) {
                     this.weight++;
-                    apple.sizeDown();
+                    fruit.sizeDown();
                 } else {
                     alert("Apple is empty");
                 }
             };
-        }
-        function Apple(size) {
-            this.size = size;
-            this.rest = size;
-            this.sizeDown = () => this.rest--;
         }
 
         function onEat(element) {
@@ -115,7 +116,7 @@
             if (apple.rest <= 0) {
                 alert("Dont can eat Apple");
             } else {
-                personEat.getEat();
+                personEat.getEat(apple);
                 appleSize.style.height = `${
                     (1 - apple.rest / apple.size) * 100
                 }%`;

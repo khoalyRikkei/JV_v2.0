@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Remote TV</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <style>
+            .container {
+                text-align: center;
+                padding: 30px;
+                display: flex;
+                gap: 30px;
+                width: 100%;
+            }
+            .remote {
+                padding: 20px;
+                border: 2px solid black;
+                border-radius: 5px;
+                width: 200px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .fa-power-off {
+                color: red;
+                font-size: 50px;
+                cursor: pointer;
+                width: 100%;
+            }
+            input[type="button"] {
+                cursor: pointer;
+            }
+            .row {
+                display: flex;
+                gap: 15px;
+            }
+            .row > * {
+                flex: 1;
+            }
+            .background {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                z-index: 1;
+            }
+            .screen {
+                position: relative;
+            }
+            .infoChannel {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                font-size: 50px;
+                color: white;
+                text-shadow: 2px 2px 2px black, 0px 0px 5px black,
+                    0px 0px 10px black;
+            }
+            video {
+                width: 1280px;
+            }
+            .volume {
+                position: absolute;
+                top: 40%;
+                right: 20px;
+                display: none;
+            }
+            .volume > i,
+            .volume > span {
+                font-size: 20px;
+                font-weight: bold;
+                display: inline-block;
+                text-shadow: 2px 2px 2px black, 0px 0px 5px black,
+                    0px 0px 10px black, 0px 0px 15px black;
+                color: white;
+                margin-left: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="screen">
+                <video autoplay id="video" loop>
+                    <source src="./videos/video-1.mp4" type="video/mp4" />
+                    Your browser does not support HTML video.
+                </video>
+                <div class="infoChannel">Channel 1 - Economic</div>
+                <div class="volume">
+                    <i class="fa-solid"></i>
+                </div>
+                <div class="background"></div>
+            </div>
+            <div class="remote">
+                <div onclick="powerControl()">
+                    <i class="fa-solid fa-power-off"></i>
+                </div>
+                <div class="row">
+                    <input
+                        type="button"
+                        value="1"
+                        onclick="handleClick(this)"
+                    />
+                    <input
+                        type="button"
+                        value="2"
+                        onclick="handleClick(this)"
+                    />
+                    <input
+                        type="button"
+                        value="3"
+                        onclick="handleClick(this)"
+                    />
+                </div>
+                <div class="row">
+                    <input
+                        type="button"
+                        value="4"
+                        onclick="handleClick(this)"
+                    />
+                    <input
+                        type="button"
+                        value="5"
+                        onclick="handleClick(this)"
+                    />
+                    <input
+                        type="button"
+                        value="6"
+                        onclick="handleClick(this)"
+                    />
+                </div>
+
+                <h3>Volume</h3>
+                <div class="row">
+                    <input
+                        type="button"
+                        value="+"
+                        onclick="handleClick(this)"
+                    />
+                    <input
+                        type="button"
+                        value="-"
+                        onclick="handleClick(this)"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let status = true;
+            const volume = document.querySelector(".volume");
+            const screen = document.querySelector(".background");
+            const infoChannel = document.querySelector(".infoChannel");
+
+            //create TV Class
+            function TV() {
+                this.volume = 5;
+                this.channels = [];
+                this.setChannel = (code, src, description) => {
+                    this.channels.push({
+                        code,
+                        src,
+                        description,
+                    });
+                };
+                this.changeVolume = (status) => {
+                    status ? this.volume++ : this.volume--;
+                    if (this.volume > 10) {
+                        this.volume = 10;
+                        return false;
+                    } else if (this.volume < 0) {
+                        this.volume = 0;
+                        return false;
+                    }
+                    return true;
+                };
+                this.powerControl = (status) =>
+                    status ? (this.status = true) : (this.status = false);
+                this.switchChannel = (code) => {
+                    let channel = this.channels.find(
+                        (channel) => channel.code === code
+                    );
+                    if (channel) {
+                        this.watching = channel;
+                    } else {
+                        return alert("Not found channel");
+                    }
+                };
+            }
+
+            //create Remote Class
+            function RemoteTV() {
+                this.switchChannel = (TV, code) => {
+                    TV.switchChannel(code);
+                };
+                this.volumeUp = (TV) => TV.changeVolume(true);
+                this.volumeDown = (TV) => TV.changeVolume(false);
+                this.turnOn = (TV) => TV.powerControl(true);
+                this.turnOff = (TV) => TV.powerControl(false);
+            }
+
+            //create TV Object
+            const tv = new TV();
+            tv.setChannel(1, "videos/video-1.mp4", "Channel 1 - Economic");
+            tv.setChannel(2, "videos/video-2.mp4", "Channel 2 - Technology");
+            tv.setChannel(3, "videos/video-3.mp4", "Channel 3 - IT");
+            tv.setChannel(4, "videos/video-4.mp4", "Channel 4 - Foods");
+            tv.setChannel(5, "videos/video-5.mp4", "Channel 5 - Stock");
+
+            //create Remote Object
+            const remote = new RemoteTV(1);
+
+            //hidden volume
+            function hiddenVolume(element) {
+                element.style.display = "none";
+            }
+
+            //Lister button of remote
+            function handleClick(element) {
+                const code = element.value;
+                // change volume
+                if (code === "+") {
+                    volume.querySelector("span")
+                        ? volume.querySelector("span").remove()
+                        : null;
+                    const changeVolume = remote.volumeUp(tv);
+                    const span = document.createElement("span");
+                    span.innerHTML = tv.volume;
+                    volume.appendChild(span);
+                    video.volume = tv.volume / 10;
+
+                    volume.style.display = "block";
+                    const i = volume.querySelector("i");
+                    i.classList.add("fa-volume-high");
+                    return setTimeout(() => {
+                        hiddenVolume(volume);
+                        i.classList.remove("fa-volume-high");
+                    }, 2000);
+                } else if (code === "-") {
+                    volume.querySelector("span")
+                        ? volume.querySelector("span").remove()
+                        : null;
+                    const changeVolume = remote.volumeDown(tv);
+                    const span = document.createElement("span");
+                    span.innerHTML = tv.volume;
+                    volume.appendChild(span);
+                    video.volume = tv.volume / 10;
+
+                    volume.style.display = "block";
+                    const i = volume.querySelector("i");
+
+                    if (!changeVolume) {
+                        i.classList.add("fa-volume-xmark");
+                        return setTimeout(() => {
+                            hiddenVolume(volume);
+                            i.classList.remove("fa-volume-xmark");
+                        }, 2000);
+                    }
+                    i.classList.add("fa-volume-low");
+                    return setTimeout(() => {
+                        hiddenVolume(volume);
+                        i.classList.remove("fa-volume-low");
+                    }, 2000);
+                }
+
+                // change channel
+                remote.switchChannel(tv, +code);
+                video.src = tv.watching.src;
+                infoChannel.innerHTML = tv.watching.description;
+            }
+
+            //Turn on - off tv
+            function powerControl() {
+                if (status) {
+                    remote.turnOff(tv);
+                    video.pause();
+                    screen.style.background = "black";
+                } else {
+                    remote.turnOn(tv);
+                    video.play();
+                    screen.style.background = "rgba(255, 255, 255, 0)";
+                }
+                status = !status;
+            }
+        </script>
+    </body>
+</html>

@@ -34,45 +34,46 @@
             </div>
         </div>
         <script>
-            let setStatus = false;
+            let setStatus = true;
             const lampImg = document.getElementById("lamp");
             const switchImg = document.getElementById("switch");
-            const Lamp = new ElectricLamp(setStatus);
-            const switchButton = new SwitchButton(setStatus);
-            function SwitchButton(status) {
-                this.status = status;
-                this.setStatus = (status) => {
-                    if (status) {
-                        this.status = false;
-                        Lamp.setStatus(false);
-                        this.src = "images/switchOff.png";
-                    } else {
-                        this.status = true;
-                        Lamp.setStatus(true);
-                        this.src = "images/switchOn.png";
-                    }
+            const Lamp = new ElectricLamp();
+            const switchButton = new SwitchButton();
+
+            function ElectricLamp() {
+                this.turnOn = () => {
+                    this.status = true;
+                    this.src = "images/lightOn.png";
                 };
-                this.src = "images/switchOn.png";
+                this.turnOff = () => {
+                    this.status = false;
+                    this.src = "images/lightOff.png";
+                };
             }
 
-            function ElectricLamp(status = true) {
+            function SwitchButton(status) {
                 this.status = status;
-                this.setStatus = (status) => {
-                    this.status = status;
-                    if (status) {
-                        this.src = "images/lightOn.png";
-                    } else {
-                        this.src = "images/lightOff.png";
-                    }
+                this.switchOn = (lamp) => {
+                    this.src = "images/switchOn.png";
+                    lamp.turnOn();
+                    this.status = true;
                 };
-                this.src = "images/lightOn.png";
+                this.switchOff = (lamp) => {
+                    this.src = "images/switchOff.png";
+                    lamp.turnOff();
+                    this.status = false;
+                };
             }
 
             function onSwitch() {
-                switchButton.setStatus(!setStatus);
+                if (setStatus) {
+                    switchButton.switchOff(Lamp);
+                } else {
+                    switchButton.switchOn(Lamp);
+                }
+                setStatus = !setStatus;
                 lampImg.src = Lamp.src;
                 switchImg.src = switchButton.src;
-                setStatus = !setStatus;
             }
         </script>
     </body>
