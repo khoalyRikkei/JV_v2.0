@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bài tập - session 18</title>
+    <style>
+        .part {
+            border-radius: 5px;
+            border: 2px solid green;
+            padding: 20px;
+            margin: 10px;
+            width: 500px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .item {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1px;
+            align-items: center;
+        }
+
+        #clock {
+            display: flex;
+            gap: 10px;
+            color: white;
+            font-size: 30px;
+        }
+
+        .hour {
+            background-color: rgb(0, 119, 255);
+        }
+
+        .min {
+            background-color: rgb(0, 119, 255);
+        }
+
+        .second {
+            background-color: rgb(227, 31, 116);
+        }
+
+        .title {
+            font-size: 16px;
+            text-transform: uppercase;
+            height: 30px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .hour>.title {
+            background-color: rgba(4, 73, 152, 0.539);
+        }
+
+        .min>.title {
+            background-color: rgba(89, 2, 72, 0.639);
+        }
+
+        .second>.title {
+            background-color: rgba(129, 16, 65, 0.611);
+        }
+
+        .music {
+            display: none
+        }
+    </style>
+</head>
+
+<body>
+    <button><a href="/">Home</a></button>
+    <div class="part">
+        <h3>Bài tập 1 - Tạo đồng hồ điện tử</h3>
+        <button><a href="./olock.html">Link</a></button>
+    </div>
+    <div class="part">
+        <h3>Bài tập 2 - Tạo đồng hồ đếm ngược</h3>
+        <button><a href="./olock.html">Link</a></button>
+    </div>
+    <div class="part">
+        <h3>Bài tập 3 - Tạo đồng hồ analog</h3>
+        <button><a href="./olock.html">Link</a></button>
+    </div>
+</body>
+
+</html>
